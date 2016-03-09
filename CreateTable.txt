@@ -1,0 +1,124 @@
+CREATE TABLE User(
+   User_ID            NUMBER           NOT NULL,
+   First_Name         VARCHAR2(25)     NOT NULL,
+   Last_Name          VARCHAR2(25)     NOT NULL,
+   Address            VARCHAR2(50)     NOT NULL,
+   Apt_Num            VARCHAR2(10)     NOT NULL,
+   City               VARCHAR2(25)     NOT NULL,
+   State       	      VARCHAR2(5)      NOT NULL,
+   Zip                NUMBER(5)        NOT NULL,
+   Phone1             NUMBER(10),
+   Phone2             NUMBER(10),
+   Email              VARCHAR(50)      NOT NULL,
+   Gender	      CHAR(1)          NOT NULL,
+   DOB		      DATE	       NOT NULL,
+   Marital_Status     VARCHAR2(25)     NOT NULL,
+   Spouse_Name        VARCHAR2(50),
+   Parent	      VARCHAR2(25),
+   Num_Children       NUMBER,
+   Valid_Date         DATE,
+   CONSTRAINT User_PK PRIMARY KEY(User_ID)
+);
+
+CREATE TABLE User_History(
+   User_ID		NUMBER		NOT NULL,
+   Valid_Date		DATE,		
+   End_Date		DATE,
+   Comment		DATE,
+   CONSTRAINT User_History_PK PRIMARY KEY(User_ID, Valid_Date)
+);
+
+
+CREATE TABLE Ministry(
+   Ministry_ID		NUMBER		NOT NULL,
+   Ministry_Name	VARCHAR2(25)	NOT NULL,
+   User_ID		NUMBER		NOT NULL,
+   Description		VARCHAR2(100)	NOT NULL,
+   CONSTRAINT Ministry_PK PRIMARY KEY(Ministry_ID),
+   CONSTRAINT Ministry_FK FOREIGN KEY(User_ID) REFERENCES USER(User_ID)
+);
+
+
+CREATE TABLE Speaker(
+   Speaker_ID		NUMBER		NOT NULL,
+   First_Name		VARCHAR2(25)	NOT NULL,
+   Last_Name		VARCHAR2(25)	NOT NULL,
+   Home_Church		VARCHAR2(50)	NOT NULL,		
+   Address		VARCHAR2(50)	NOT NULL,
+   City			VARCHAR2(25)	NOT NULL,
+   State		VARCHAR2(5)	NOT NULL,
+   Zip			NUMBER(5)	NOT NULL,
+   Phone		NUMBER(10)	NOT NULL,
+   Email		VARCHAR2(25)	NOT NULL,
+   CONSTRAINT Speaker_PK PRIMARY KEY(Speaker_ID),
+);
+
+
+CREATE TABLE Reservation(
+   Reservation_ID	NUMBER		NOT NULL,
+   Room_ID		NUMBER		NOT NULL,
+   User_ID		NUMBER		NOT NULL,
+   Event_Type		VARCHAR2(25)	NOT NULL,
+   Start_Date		DATE		NOT NULL,
+   End_Date		DATE		NOT NULL,
+   Start_Time		TIME		NOT NULL,
+   End_Time		TIME		NOT NULL,
+   Description		VARCHAR2(25),
+   CONSTRAINT Reservation_PK PRIMARY KEY(Reservation_ID),
+   CONSTRAINT Reservation_FK FOREIGN KEY(User_ID) REFERENCES User(User_ID)
+);
+
+
+CREATE TABLE Room(
+   Room_ID		NUMBER		NOT NULL,
+   Reservation_ID	NUMBER		NOT NULL,
+   Room_Name		VARCHAR2(25)	NOT NULL,
+   Room_Location	VARCHAR2(25)	NOT NULL,
+   Comments		VARCHAR2(100)	NOT NULL,
+   CONSTRAINT Room_PK PRIMARY KEY(Room_ID),
+   CONSTRAINT Room_FK FOREIGN KEY(Reservation_ID) REFERENCES Reservation(Reservation_ID)
+);
+
+
+CREATE TABLE Event(
+   Event_ID		NUMBER		NOT NULL,
+   Ministry_ID		NUMBER		NOT NULL,
+   Speaker_ID		NUMBER		NOT NULL,
+   Message_Title	VARCHAR2(75)	NOT NULL, 
+   Event_Name		VARCHAR2(25)	NOT NULL,
+   Start_Date		DATE		NOT NULL,
+   Start_Time		TIME		NOT NULL,
+   End_Date		DATE		NOT NULL,
+   End_Time		TIME		NOT NULL,
+   Attendance		NUMBER(6)	NOT NULL,
+   Num_Guests		NUMBER(5),
+   Total_Tithe		NUMBER(11,2),
+   Total_Offering	NUMBER(11,2),
+   Baptisms		NUMBER,
+   Holy_Ghost		NUMBER,
+   CONSTRAINT Event_PK PRIMARY KEY(Event_ID),
+   CONSTRAINT Event_FK FOREIGN KEY(Ministry_ID) REFERENCES Ministry(Ministry_ID),
+   CONSTRAINT Event_FK2 FOREIGN KEY(Speaker_ID) REFERENCES Speaker(Speaker_ID)
+);
+
+
+
+CREATE TABLE Contributions(
+   Contribution_ID	NUMBER		NOT NULL,
+   Event_ID		NUMBER		NOT NULL,
+   User_ID		NUMBER		NOT NULL,
+   Donation_ID		NUMBER		NOT NULL,
+   CONSTRAINT Contribution_PK PRIMARY KEY(Contribution_ID),
+   CONSTRAINT Contribution_FK1 FOREIGN KEY(Event_ID) REFERENCES Event(Event_ID),
+   CONSTRAINT Contribution_FK2 FOREIGN KEY(User_ID) REFERENCES User(User_ID)
+);
+
+
+
+CREATE TABLE Donation(
+   Donation_ID		NUMBER		NOT NULL,
+   Donation_Type	VARCHAR2(25)	NOT NULL,
+   Payment_Type		VARCHAR2(25)	NOT NULL,
+   Description		VARCHAR2(100)	NOT NULL,
+   CONSTRAINT Donation_PK PRIMARY KEY(Donation_ID)
+   
