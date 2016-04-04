@@ -190,7 +190,7 @@ public class AdminGuestInfo {
 		frmCrossconnect8.getContentPane().add(textField_6);
 		
 		JLabel label_5 = new JLabel("Family Members:");
-		label_5.setBounds(396, 159, 104, 14);
+		label_5.setBounds(392, 159, 104, 14);
 		frmCrossconnect8.getContentPane().add(label_5);
 		
 		JLabel label_6 = new JLabel("Marital Status:");
@@ -203,7 +203,7 @@ public class AdminGuestInfo {
 		frmCrossconnect8.getContentPane().add(textField_7);
 		
 		JLabel label_7 = new JLabel("Member Status:");
-		label_7.setBounds(392, 214, 92, 14);
+		label_7.setBounds(392, 196, 92, 14);
 		frmCrossconnect8.getContentPane().add(label_7);
 		
 		JLabel lblEnterMemberName = new JLabel("Enter member name or ID: ");
@@ -318,7 +318,7 @@ public class AdminGuestInfo {
 		
 		txtAppliedFor = new JTextField();
 		txtAppliedFor.setText("Applied For");
-		txtAppliedFor.setBounds(494, 211, 86, 20);
+		txtAppliedFor.setBounds(494, 193, 86, 20);
 		frmCrossconnect8.getContentPane().add(txtAppliedFor);
 		txtAppliedFor.setColumns(10);
 		
