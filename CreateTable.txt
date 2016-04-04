@@ -104,21 +104,26 @@ CREATE TABLE Event(
 
 
 CREATE TABLE Contributions(
-   Contribution_ID	NUMBER		NOT NULL,
-   Event_ID		NUMBER		NOT NULL,
-   User_ID		NUMBER		NOT NULL,
-   Donation_ID		NUMBER		NOT NULL,
-   CONSTRAINT Contribution_PK PRIMARY KEY(Contribution_ID),
-   CONSTRAINT Contribution_FK1 FOREIGN KEY(Event_ID) REFERENCES Event(Event_ID),
-   CONSTRAINT Contribution_FK2 FOREIGN KEY(User_ID) REFERENCES User(User_ID)
+	Contribution_ID 	NUMBER		NOT NULL,
+	Contribution_Name 	VARCHAR2(25)	NOT NULL,
+	Description		VARCHAR2(100)	NOT NULL,
+	Contribution_Goal 	NUMBER		NOT NULL,
+	Contribution_Received 	NUMBER		NOT NULL,
+	Start_DATE 		DATE 		
+	End_Date 		DATE 		
+CONSTRAINT Contribution_PK PRIMARY KEY(Contribution_ID),	
 );
 
 
-
 CREATE TABLE Donation(
-   Donation_ID		NUMBER		NOT NULL,
-   Donation_Type	VARCHAR2(25)	NOT NULL,
-   Payment_Type		VARCHAR2(25)	NOT NULL,
-   Description		VARCHAR2(100)	NOT NULL,
-   CONSTRAINT Donation_PK PRIMARY KEY(Donation_ID)
+	Donation_ID 	NUMBER 		NOT NULL,
+ 	Donation_Date 	DATE 		NOT NULL,
+	User_ID 	NUMBER 		NOT NULL,
+	Donation_Amount NUMBER 		NOT NULL,
+	Contribution_ID NUMBER 		NOT NULL,
+	Payment_Type	VARCHAR2(25)	NOT NULL,
+CONSTRAINT Donation_PK PRIMARY KEY(Donation_ID)
+CONSTRAINT Donation_FK1 FOREIGN KEY(Contribution_ID) REFERENCES Contribution(Contribution_ID),
+CONSTRAINT Donation_FK2 FOREIGN KEY(User_ID) REFERENCES User(User_ID),
+);
    
