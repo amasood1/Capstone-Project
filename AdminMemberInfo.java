@@ -212,7 +212,7 @@ public class AdminMemberInfo {
 		frmCrossconnect7.getContentPane().add(choice);
 		
 		JLabel label_6 = new JLabel("Marital Status:");
-		label_6.setBounds(196, 232, 92, 14);
+		label_6.setBounds(178, 232, 92, 14);
 		frmCrossconnect7.getContentPane().add(label_6);
 		
 		textField_7 = new JTextField();
@@ -230,11 +230,11 @@ public class AdminMemberInfo {
 		frmCrossconnect7.getContentPane().add(textField_8);
 		
 		JLabel lblEnterMemberName = new JLabel("Enter member name or ID: ");
-		lblEnterMemberName.setBounds(188, 95, 147, 14);
+		lblEnterMemberName.setBounds(188, 95, 172, 14);
 		frmCrossconnect7.getContentPane().add(lblEnterMemberName);
 		
 		JLabel label_8 = new JLabel("Date of Joining:");
-		label_8.setBounds(195, 269, 104, 14);
+		label_8.setBounds(180, 269, 93, 14);
 		frmCrossconnect7.getContentPane().add(label_8);
 		
 		textField_9 = new JTextField();
