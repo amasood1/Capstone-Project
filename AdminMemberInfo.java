@@ -207,10 +207,6 @@ public class AdminMemberInfo {
 		label_5.setBounds(386, 196, 104, 14);
 		frmCrossconnect7.getContentPane().add(label_5);
 		
-		Choice choice = new Choice();
-		choice.setBounds(494, 196, 86, 20);
-		frmCrossconnect7.getContentPane().add(choice);
-		
 		JLabel label_6 = new JLabel("Marital Status:");
 		label_6.setBounds(178, 232, 92, 14);
 		frmCrossconnect7.getContentPane().add(label_6);
@@ -373,6 +369,18 @@ public class AdminMemberInfo {
 		label_17.setForeground(new Color(0, 0, 128));
 		label_17.setBounds(528, 495, 67, 14);
 		frmCrossconnect7.getContentPane().add(label_17);
+		
+		JLabel lblMinistriesEnrolledIn = new JLabel("Ministries Enrolled In:");
+		lblMinistriesEnrolledIn.setBounds(370, 297, 130, 14);
+		frmCrossconnect7.getContentPane().add(lblMinistriesEnrolledIn);
+		
+		Choice choice_1 = new Choice();
+		choice_1.setBounds(494, 291, 86, 20);
+		frmCrossconnect7.getContentPane().add(choice_1);
+		
+		Choice choice = new Choice();
+		choice.setBounds(494, 196, 86, 20);
+		frmCrossconnect7.getContentPane().add(choice);
 		
 		
 
