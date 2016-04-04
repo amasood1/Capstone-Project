@@ -21,11 +21,13 @@ CREATE TABLE User(
 );
 
 CREATE TABLE User_History(
+   History_ID 		NUMBER 		NOT NULL,
    User_ID		NUMBER		NOT NULL,
    Valid_Date		DATE,		
    End_Date		DATE,
    Comment		DATE,
-   CONSTRAINT User_History_PK PRIMARY KEY(User_ID, Valid_Date)
+   CONSTRAINT User_History_PK PRIMARY KEY(History_id)
+   CONSTRAINT User_History_FK FOREIGN KEY(USER_ID) REFERENCES USER(User_ID)
 );
 
 
