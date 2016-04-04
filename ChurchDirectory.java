@@ -157,13 +157,13 @@ public class ChurchDirectory {
 		button_1.setBounds(362, 462, 86, 22);
 		frmCrossconnect5.getContentPane().add(button_1);
 		
-		JTextArea textArea = new JTextArea();
-		textArea.setBounds(234, 121, 348, 325);
-		frmCrossconnect5.getContentPane().add(textArea);
-		
 		JLabel lblChurchcontactsDirectory = new JLabel("Church Contacts Directory");
 		lblChurchcontactsDirectory.setBounds(234, 96, 161, 14);
 		frmCrossconnect5.getContentPane().add(lblChurchcontactsDirectory);
+		
+		List list = new List();
+		list.setBounds(234, 131, 309, 267);
+		frmCrossconnect5.getContentPane().add(list);
 		
 				
 		
