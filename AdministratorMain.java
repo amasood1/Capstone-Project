@@ -130,23 +130,11 @@ public class AdministratorMain {
 		frmCrossconnect6.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 
-		Button button = new Button("BACK");
-		button.setForeground(new Color(0, 0, 0));
-		button.setBackground(new Color(30, 144, 255));
-		button.setBounds(274, 462, 70, 22);
-		frmCrossconnect6.getContentPane().add(button);
-
 		Button button_3 = new Button("EXIT");
 		button_3.setForeground(new Color(0, 0, 0));
 		button_3.setBackground(new Color(30, 144, 255));
-		button_3.setBounds(473, 462, 70, 22);
+		button_3.setBounds(358, 463, 99, 23);
 		frmCrossconnect6.getContentPane().add(button_3);
-
-		Button button_1 = new Button("SEND E-MAIL");
-		button_1.setForeground(new Color(0, 0, 0));
-		button_1.setBackground(new Color(30, 144, 255));
-		button_1.setBounds(362, 462, 86, 22);
-		frmCrossconnect6.getContentPane().add(button_1);
 		
 		Button button_2 = new Button("Member Information");
 		button_2.setFont(new Font("Dialog", Font.PLAIN, 12));
