@@ -96,8 +96,6 @@ CREATE TABLE Event(
    Num_Guests		NUMBER(5),
    Total_Tithe		NUMBER(11,2),
    Total_Offering	NUMBER(11,2),
-   Baptisms		NUMBER,
-   Holy_Ghost		NUMBER,
    CONSTRAINT Event_PK PRIMARY KEY(Event_ID),
    CONSTRAINT Event_FK FOREIGN KEY(Ministry_ID) REFERENCES Ministry(Ministry_ID),
    CONSTRAINT Event_FK2 FOREIGN KEY(Speaker_ID) REFERENCES Speaker(Speaker_ID)
