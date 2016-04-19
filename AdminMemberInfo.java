@@ -12,10 +12,6 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
@@ -26,8 +22,17 @@ import javax.swing.JMenuItem;
 import java.awt.ScrollPane;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
+import java.sql.Statement;
+import java.text.SimpleDateFormat;
 import java.awt.Choice;
 import java.awt.List;
 import java.awt.TextField;
@@ -43,26 +48,33 @@ import com.toedter.calendar.JMonthChooser;
 import javax.swing.JTextArea;
 import java.awt.Label;
 
-public class AdminMemberInfo {
+public class AdminMemberInfo implements ActionListener {
 
 	JFrame frmCrossconnect7;
-	private JTextField textField;
-	private JTextField textField_2;
-	private JTextField textField_1;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
-	private JTextField textField_15;
-	private JTextField textField_16;
+	private JTextField adminID;
+	private JTextField adminName;
+	private JTextField memberName;
+	private JTextField memberID;
+	private JTextField dateOfBirth;
+	private JTextField lastName;
+	private JTextField age;
+	private JTextField maritalStatus;
+	private JTextField memberStatus;
+	private JTextField joinDate;
+	private JTextField leaveDate;
+	private JTextField address;
+	private JTextField city;
+	private JTextField zip;
+	private JTextField homePhone;
+	private JTextField cellPhone;
+	private JTextField email;
+	private Choice choice;
+	private Choice choice_1;
+	private Button button;
+	private Button button_1;
+	private Button button_2;
+	private Button button_3;
+	private Button button_4;
 
 	/**
 	 * Launch the application.
@@ -135,15 +147,15 @@ public class AdminMemberInfo {
 		lblNewLabel_1.setBounds(224, 52, 46, 14);
 		frmCrossconnect7.getContentPane().add(lblNewLabel_1);
 
-		textField = new JTextField();
-		textField.setBounds(494, 49, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField);
-		textField.setColumns(10);
+		adminID = new JTextField();
+		adminID.setBounds(494, 49, 86, 20);
+		frmCrossconnect7.getContentPane().add(adminID);
+		adminID.setColumns(10);
 
-		textField_2 = new JTextField();
-		textField_2.setBounds(274, 49, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		adminName = new JTextField();
+		adminName.setBounds(274, 49, 86, 20);
+		frmCrossconnect7.getContentPane().add(adminName);
+		adminName.setColumns(10);
 		
 		JEditorPane dtrpnMainGuestInformation = new JEditorPane();
 		dtrpnMainGuestInformation.setText("Main \r\n\r\n Guest Information\r\n\r\n Ministries\r\n\r\n Event Calendar\r\n\r\n PR Management\r\n\r\n");
@@ -160,10 +172,10 @@ public class AdminMemberInfo {
 		label.setBounds(224, 120, 46, 14);
 		frmCrossconnect7.getContentPane().add(label);
 		
-		textField_1 = new JTextField();
-		textField_1.setColumns(10);
-		textField_1.setBounds(274, 117, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_1);
+		memberName = new JTextField("John");
+		memberName.setColumns(10);
+		memberName.setBounds(274, 117, 86, 20);
+		frmCrossconnect7.getContentPane().add(memberName);
 		
 		JLabel label_1 = new JLabel("Member ID:");
 		label_1.setForeground(new Color(0, 0, 205));
@@ -171,39 +183,39 @@ public class AdminMemberInfo {
 		label_1.setBounds(398, 120, 67, 14);
 		frmCrossconnect7.getContentPane().add(label_1);
 		
-		textField_3 = new JTextField();
-		textField_3.setColumns(10);
-		textField_3.setBounds(494, 117, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_3);
+		memberID = new JTextField("0");
+		memberID.setColumns(10);
+		memberID.setBounds(494, 117, 86, 20);
+		frmCrossconnect7.getContentPane().add(memberID);
 		
 		JLabel label_2 = new JLabel("Date of Birth:");
 		label_2.setBounds(198, 159, 79, 14);
 		frmCrossconnect7.getContentPane().add(label_2);
 		
-		textField_4 = new JTextField();
-		textField_4.setColumns(10);
-		textField_4.setBounds(274, 156, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_4);
+		dateOfBirth = new JTextField();
+		dateOfBirth.setColumns(10);
+		dateOfBirth.setBounds(274, 156, 86, 20);
+		frmCrossconnect7.getContentPane().add(dateOfBirth);
 		
-		JLabel label_3 = new JLabel("Family ID:");
+		JLabel label_3 = new JLabel("Last Name:");
 		label_3.setBounds(418, 162, 84, 14);
 		frmCrossconnect7.getContentPane().add(label_3);
 		
-		textField_5 = new JTextField();
-		textField_5.setColumns(10);
-		textField_5.setBounds(494, 156, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_5);
+		lastName = new JTextField("Smith");
+		lastName.setColumns(10);
+		lastName.setBounds(494, 156, 86, 20);
+		frmCrossconnect7.getContentPane().add(lastName);
 		
 		JLabel label_4 = new JLabel("Age:");
 		label_4.setBounds(242, 196, 46, 14);
 		frmCrossconnect7.getContentPane().add(label_4);
 		
-		textField_6 = new JTextField();
-		textField_6.setColumns(10);
-		textField_6.setBounds(274, 193, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_6);
+		age = new JTextField();
+		age.setColumns(10);
+		age.setBounds(274, 193, 86, 20);
+		frmCrossconnect7.getContentPane().add(age);
 		
-		JLabel label_5 = new JLabel("Family Members:");
+		JLabel label_5 = new JLabel("Gender:");
 		label_5.setBounds(386, 196, 104, 14);
 		frmCrossconnect7.getContentPane().add(label_5);
 		
@@ -211,19 +223,19 @@ public class AdminMemberInfo {
 		label_6.setBounds(178, 232, 92, 14);
 		frmCrossconnect7.getContentPane().add(label_6);
 		
-		textField_7 = new JTextField();
-		textField_7.setColumns(10);
-		textField_7.setBounds(274, 229, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_7);
+		maritalStatus = new JTextField();
+		maritalStatus.setColumns(10);
+		maritalStatus.setBounds(274, 229, 86, 20);
+		frmCrossconnect7.getContentPane().add(maritalStatus);
 		
 		JLabel label_7 = new JLabel("Member Status:");
 		label_7.setBounds(392, 232, 92, 14);
 		frmCrossconnect7.getContentPane().add(label_7);
 		
-		textField_8 = new JTextField();
-		textField_8.setColumns(10);
-		textField_8.setBounds(494, 229, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_8);
+		memberStatus = new JTextField();
+		memberStatus.setColumns(10);
+		memberStatus.setBounds(494, 229, 86, 20);
+		frmCrossconnect7.getContentPane().add(memberStatus);
 		
 		JLabel lblEnterMemberName = new JLabel("Enter member name or ID: ");
 		lblEnterMemberName.setBounds(188, 95, 172, 14);
@@ -233,19 +245,19 @@ public class AdminMemberInfo {
 		label_8.setBounds(180, 269, 93, 14);
 		frmCrossconnect7.getContentPane().add(label_8);
 		
-		textField_9 = new JTextField();
-		textField_9.setColumns(10);
-		textField_9.setBounds(274, 266, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_9);
+		joinDate = new JTextField();
+		joinDate.setColumns(10);
+		joinDate.setBounds(274, 266, 86, 20);
+		frmCrossconnect7.getContentPane().add(joinDate);
 		
 		JLabel label_9 = new JLabel("Date of Leaving:");
 		label_9.setBounds(388, 269, 96, 14);
 		frmCrossconnect7.getContentPane().add(label_9);
 		
-		textField_10 = new JTextField();
-		textField_10.setColumns(10);
-		textField_10.setBounds(494, 266, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_10);
+		leaveDate = new JTextField();
+		leaveDate.setColumns(10);
+		leaveDate.setBounds(494, 266, 86, 20);
+		frmCrossconnect7.getContentPane().add(leaveDate);
 		
 		JLabel label_10 = new JLabel("Contact Information");
 		label_10.setBounds(198, 310, 137, 14);
@@ -255,83 +267,87 @@ public class AdminMemberInfo {
 		label_11.setBounds(198, 335, 79, 14);
 		frmCrossconnect7.getContentPane().add(label_11);
 		
-		textField_11 = new JTextField();
-		textField_11.setColumns(10);
-		textField_11.setBounds(198, 360, 440, 23);
-		frmCrossconnect7.getContentPane().add(textField_11);
+		address = new JTextField("123 Nowhere Street");
+		address.setColumns(10);
+		address.setBounds(198, 360, 440, 23);
+		frmCrossconnect7.getContentPane().add(address);
 		
 		JLabel label_12 = new JLabel("City:");
 		label_12.setBounds(224, 394, 46, 14);
 		frmCrossconnect7.getContentPane().add(label_12);
 		
-		textField_12 = new JTextField();
-		textField_12.setColumns(10);
-		textField_12.setBounds(274, 391, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_12);
+		city = new JTextField("Raleigh");
+		city.setColumns(10);
+		city.setBounds(274, 391, 86, 20);
+		frmCrossconnect7.getContentPane().add(city);
 		
 		JLabel label_13 = new JLabel("Zipcode:");
 		label_13.setBounds(428, 394, 46, 14);
 		frmCrossconnect7.getContentPane().add(label_13);
 		
-		textField_13 = new JTextField();
-		textField_13.setColumns(10);
-		textField_13.setBounds(494, 394, 86, 20);
-		frmCrossconnect7.getContentPane().add(textField_13);
+		zip = new JTextField("27597");
+		zip.setColumns(10);
+		zip.setBounds(494, 394, 86, 20);
+		frmCrossconnect7.getContentPane().add(zip);
 		
 		JLabel label_14 = new JLabel("Home Phone:");
 		label_14.setBounds(186, 422, 102, 14);
 		frmCrossconnect7.getContentPane().add(label_14);
 		
-		textField_14 = new JTextField();
-		textField_14.setColumns(10);
-		textField_14.setBounds(268, 419, 92, 20);
-		frmCrossconnect7.getContentPane().add(textField_14);
+		homePhone = new JTextField("5555555");
+		homePhone.setColumns(10);
+		homePhone.setBounds(268, 419, 92, 20);
+		frmCrossconnect7.getContentPane().add(homePhone);
 		
 		JLabel label_15 = new JLabel("Cell Phone:");
 		label_15.setBounds(418, 422, 96, 14);
 		frmCrossconnect7.getContentPane().add(label_15);
 		
-		textField_15 = new JTextField();
-		textField_15.setColumns(10);
-		textField_15.setBounds(484, 419, 96, 20);
-		frmCrossconnect7.getContentPane().add(textField_15);
+		cellPhone = new JTextField("5555555");
+		cellPhone.setColumns(10);
+		cellPhone.setBounds(484, 419, 96, 20);
+		frmCrossconnect7.getContentPane().add(cellPhone);
 		
 		JLabel label_16 = new JLabel("Email:");
 		label_16.setBounds(224, 447, 46, 14);
 		frmCrossconnect7.getContentPane().add(label_16);
 		
-		textField_16 = new JTextField();
-		textField_16.setColumns(10);
-		textField_16.setBounds(268, 444, 152, 20);
-		frmCrossconnect7.getContentPane().add(textField_16);
+		email = new JTextField("email@host.com");
+		email.setColumns(10);
+		email.setBounds(268, 444, 152, 20);
+		frmCrossconnect7.getContentPane().add(email);
 		
 		JLabel lblAttendance = new JLabel("Attendance:");
 		lblAttendance.setBounds(192, 472, 67, 14);
 		frmCrossconnect7.getContentPane().add(lblAttendance);
 		
-		Button button = new Button("ADD");
+		button = new Button("ADD");
 		button.setForeground(Color.BLACK);
 		button.setBackground(new Color(30, 144, 255));
 		button.setBounds(639, 79, 70, 22);
 		frmCrossconnect7.getContentPane().add(button);
+		button.addActionListener(this);
 		
-		Button button_1 = new Button("UPDATE");
+		button_1 = new Button("UPDATE");
 		button_1.setForeground(Color.BLACK);
 		button_1.setBackground(new Color(30, 144, 255));
 		button_1.setBounds(639, 128, 70, 22);
 		frmCrossconnect7.getContentPane().add(button_1);
+		button_1.addActionListener(this);
 		
-		Button button_2 = new Button("DELETE");
+		button_2 = new Button("DELETE");
 		button_2.setForeground(Color.BLACK);
 		button_2.setBackground(new Color(30, 144, 255));
 		button_2.setBounds(639, 175, 70, 22);
 		frmCrossconnect7.getContentPane().add(button_2);
+		button_2.addActionListener(this);
 		
-		Button button_3 = new Button("EXIT");
+		button_3 = new Button("EXIT");
 		button_3.setForeground(Color.BLACK);
 		button_3.setBackground(new Color(30, 144, 255));
 		button_3.setBounds(639, 269, 70, 22);
 		frmCrossconnect7.getContentPane().add(button_3);
+		button_3.addActionListener(this);
 		
 		JLabel lblContributions = new JLabel("Contributions:");
 		lblContributions.setBounds(395, 475, 70, 14);
@@ -354,11 +370,12 @@ public class AdminMemberInfo {
 		yearChooser.setBounds(268, 489, 47, 20);
 		frmCrossconnect7.getContentPane().add(yearChooser);
 		
-		Button button_4 = new Button("PRINT");
+		button_4 = new Button("PRINT");
 		button_4.setForeground(new Color(0, 0, 0));
 		button_4.setBackground(new Color(30, 144, 255));
 		button_4.setBounds(639, 224, 70, 22);
 		frmCrossconnect7.getContentPane().add(button_4);
+		button_4.addActionListener(this);
 		
 		JLabel lblViewReport = new JLabel("View Report");
 		lblViewReport.setForeground(new Color(0, 0, 128));
@@ -374,14 +391,23 @@ public class AdminMemberInfo {
 		lblMinistriesEnrolledIn.setBounds(370, 297, 130, 14);
 		frmCrossconnect7.getContentPane().add(lblMinistriesEnrolledIn);
 		
-		Choice choice_1 = new Choice();
-		choice_1.setBounds(494, 291, 86, 20);
+		choice_1 = new Choice();
+		choice_1.setBounds(494, 196, 86, 20);
 		frmCrossconnect7.getContentPane().add(choice_1);
+		choice_1.add("M");
+		choice_1.add("F");
 		
-		Choice choice = new Choice();
-		choice.setBounds(494, 196, 86, 20);
+		
+		choice = new Choice();
+		choice.setBounds(494, 291, 86, 20);
 		frmCrossconnect7.getContentPane().add(choice);
-		
+		choice.add("The Bridge");
+		choice.add("Drama");
+		choice.add("Home Bible Study");
+		choice.add("TOP Kids");
+		choice.add("Mission 14:23");
+		choice.add("IMPACT Student Ministries");
+		choice.add("Mother's Morning out");
 		
 
 	}
@@ -404,5 +430,64 @@ public class AdminMemberInfo {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==button)
+		{
+			System.out.println(email.getText());
+			
+			try {
+				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
+				Statement s=con.createStatement();
+
+				String queryString="'"+memberID.getText()+"','"+memberName.getText()+"','"+lastName.getText()+"','"+address.getText()+"','"+city.getText()+"','"+zip.getText()+"','"+homePhone.getText()+"','"+cellPhone.getText()+"','"+email.getText()+
+						"','"+maritalStatus.getName()+"'"+",'password'"+",'"+choice_1.getSelectedItem()+"'";
+				System.out.println(queryString);
+				Date d=new Date (3,3,1994);		
+				s.execute("INSERT INTO [Users](User_ID,First_Name,Last_Name,Address,City,Zip,Phone1,Phone2,Email,Marital_Status,Password,Gender,DOB,State)"
+					+ "VALUES("+queryString+",'"+d+"','NC')");
+				
+				
+				
+			} catch (Exception x) {
+				// TODO Auto-generated catch block
+				x.printStackTrace();
+		}
+		}
+		else if(e.getSource()==button_1)
+		{
+			//todo
+		}
+		else if(e.getSource()==button_2)
+		{
+			try {
+				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
+				Statement s=con.createStatement();
+
+				s.execute("DELETE FROM [Users] WHERE User_ID='"+memberID.getText()+"'");
+				
+				
+			} catch (Exception x) {
+				// TODO Auto-generated catch block
+				x.printStackTrace();
+		}
+		}
+		else if(e.getSource()==button_3)
+		{
+			String[] args = null;
+			AdministratorMain.main(args);
+			frmCrossconnect7.dispose();
+			
+			
+		}
+		else if(e.getSource()==button_4)
+		{
+			//todo
+		}
+	
+			
 	}
 }

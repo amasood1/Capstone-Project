@@ -12,10 +12,6 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
@@ -26,8 +22,14 @@ import javax.swing.JMenuItem;
 import java.awt.ScrollPane;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.awt.Choice;
 import java.awt.List;
 import java.awt.TextField;
@@ -47,7 +49,7 @@ import java.awt.TextArea;
 import javax.swing.JList;
 import javax.swing.border.LineBorder;
 
-public class AdminGuestInfo {
+public class AdminGuestInfo implements ActionListener {
 
 	JFrame frmCrossconnect8;
 	private JTextField textField;
@@ -55,6 +57,7 @@ public class AdminGuestInfo {
 	private JTextField textField_1;
 	private JTextField textField_3;
 	private JTextField textField_4;
+	private JTextField textField_5;
 	private JTextField textField_6;
 	private JTextField textField_7;
 	private JTextField textField_11;
@@ -64,7 +67,11 @@ public class AdminGuestInfo {
 	private JTextField textField_15;
 	private JTextField textField_16;
 	private JTextField txtAppliedFor;
-
+	private Button button;
+	private Button button_1;
+	private Button button_2;
+	private Button button_3;
+	private Button button_4;
 	/**
 	 * Launch the application.
 	 */
@@ -74,6 +81,7 @@ public class AdminGuestInfo {
 				try {
 					AdminGuestInfo window = new AdminGuestInfo();
 					window.frmCrossconnect8.setVisible(true);
+					//AdministratorMain.main(args);
 					// window.frmCrossconnect.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -193,6 +201,11 @@ public class AdminGuestInfo {
 		label_5.setBounds(392, 159, 104, 14);
 		frmCrossconnect8.getContentPane().add(label_5);
 		
+		textField_5=new JTextField();
+		textField_5.setColumns(10);
+		textField_5.setBounds(250, 159, 104, 14);
+		frmCrossconnect8.getContentPane().add(textField_6);
+		
 		JLabel label_6 = new JLabel("Marital Status:");
 		label_6.setBounds(195, 196, 92, 14);
 		frmCrossconnect8.getContentPane().add(label_6);
@@ -272,37 +285,42 @@ public class AdminGuestInfo {
 		textField_16.setBounds(268, 444, 152, 20);
 		frmCrossconnect8.getContentPane().add(textField_16);
 		
-		Button button = new Button("ADD");
+		button = new Button("ADD");
 		button.setForeground(Color.BLACK);
 		button.setBackground(new Color(30, 144, 255));
 		button.setBounds(639, 79, 70, 22);
 		frmCrossconnect8.getContentPane().add(button);
+		button.addActionListener(this);
 		
-		Button button_1 = new Button("UPDATE");
+		button_1 = new Button("UPDATE");
 		button_1.setForeground(Color.BLACK);
 		button_1.setBackground(new Color(30, 144, 255));
 		button_1.setBounds(639, 128, 70, 22);
 		frmCrossconnect8.getContentPane().add(button_1);
+		button_1.addActionListener(this);
 		
-		Button button_2 = new Button("DELETE");
+		button_2 = new Button("DELETE");
 		button_2.setForeground(Color.BLACK);
 		button_2.setBackground(new Color(30, 144, 255));
 		button_2.setBounds(639, 175, 70, 22);
 		frmCrossconnect8.getContentPane().add(button_2);
-		
-		Button button_3 = new Button("EXIT");
+		button_2.addActionListener(this);
+	
+		button_3 = new Button("EXIT");
 		button_3.setForeground(Color.BLACK);
 		button_3.setBackground(new Color(30, 144, 255));
 		button_3.setBounds(639, 310, 70, 22);
 		frmCrossconnect8.getContentPane().add(button_3);
+		button_3.addActionListener(this);
 		
 		
-		
-		Button button_4 = new Button("PRINT");
+		button_4 = new Button("PRINT");
 		button_4.setForeground(new Color(0, 0, 0));
 		button_4.setBackground(new Color(30, 144, 255));
 		button_4.setBounds(639, 224, 70, 22);
+		button_4.addActionListener(null);
 		frmCrossconnect8.getContentPane().add(button_4);
+		button_4.addActionListener(this);
 		
 		JLabel lblMinistriesEnrolledIn = new JLabel("Ministry of Interest:");
 		lblMinistriesEnrolledIn.setBounds(170, 268, 130, 14);
@@ -327,6 +345,7 @@ public class AdminGuestInfo {
 		button_5.setForeground(new Color(0, 0, 0));
 		button_5.setBounds(639, 268, 70, 22);
 		frmCrossconnect8.getContentPane().add(button_5);
+		button_5.addActionListener(this);
 		
 		
 		
@@ -352,5 +371,43 @@ public class AdminGuestInfo {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==button)
+		{
+			System.out.println("Field 1:"+textField.getText());
+			System.out.println("Field 2:"+textField_2.getText());
+			try {
+				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
+				Statement s=con.createStatement();
+				
+			} catch (Exception x) {
+				// TODO Auto-generated catch block
+				x.printStackTrace();
+		}
+		}
+		else if(e.getSource()==button_1)
+		{
+			
+		}
+		else if(e.getSource()==button_2)
+		{
+			
+		}
+		else if(e.getSource()==button_3)
+		{
+
+			String[] args = null;
+			AdministratorMain.main(args);
+			frmCrossconnect8.dispose();
+		}
+		else if(e.getSource()==button_4)
+		{
+			
+		}
+	
+			
 	}
 }

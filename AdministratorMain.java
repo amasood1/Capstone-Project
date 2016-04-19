@@ -12,10 +12,6 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
@@ -26,8 +22,14 @@ import javax.swing.JMenuItem;
 import java.awt.ScrollPane;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.Statement;
 import java.awt.Choice;
 import java.awt.List;
 import java.awt.TextField;
@@ -42,12 +44,18 @@ import com.toedter.components.JSpinField;
 import com.toedter.calendar.JMonthChooser;
 import javax.swing.JTextArea;
 
-public class AdministratorMain {
+public class AdministratorMain implements ActionListener {
 
 	JFrame frmCrossconnect6;
 	private JTextField textField;
 	private JTextField textField_2;
 	private JTextField txtSelectAnOption;
+	private Button button;
+	private Button button_2;
+	private Button button_4;
+	private Button button_5;
+	private Button button_6;
+	private Button button_7;
 
 	/**
 	 * Launch the application.
@@ -130,46 +138,52 @@ public class AdministratorMain {
 		frmCrossconnect6.getContentPane().add(textField_2);
 		textField_2.setColumns(10);
 
-		Button button_3 = new Button("EXIT");
-		button_3.setForeground(new Color(0, 0, 0));
-		button_3.setBackground(new Color(30, 144, 255));
-		button_3.setBounds(358, 463, 99, 23);
-		frmCrossconnect6.getContentPane().add(button_3);
+		button = new Button("EXIT");
+		button.setForeground(new Color(0, 0, 0));
+		button.setBackground(new Color(30, 144, 255));
+		button.setBounds(358, 463, 99, 23);
+		frmCrossconnect6.getContentPane().add(button);
+		button.addActionListener(this);
 		
-		Button button_2 = new Button("Member Information");
+		button_2 = new Button("Member Information");
 		button_2.setFont(new Font("Dialog", Font.PLAIN, 12));
 		button_2.setForeground(new Color(0, 0, 0));
 		button_2.setBackground(new Color(30, 144, 255));
 		button_2.setBounds(309, 145, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_2);
+		button_2.addActionListener(this);
 		
-		Button button_4 = new Button("Guest Information");
+		button_4 = new Button("Guest Information");
 		button_4.setForeground(Color.BLACK);
 		button_4.setFont(new Font("Dialog", Font.PLAIN, 12));
 		button_4.setBackground(new Color(30, 144, 255));
 		button_4.setBounds(309, 183, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_4);
+		button_4.addActionListener(this);
 		
-		Button button_5 = new Button("Ministries");
+		button_5 = new Button("Ministries");
 		button_5.setForeground(Color.BLACK);
 		button_5.setFont(new Font("Dialog", Font.PLAIN, 12));
 		button_5.setBackground(new Color(30, 144, 255));
 		button_5.setBounds(309, 222, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_5);
+		button_5.addActionListener(this);
 		
-		Button button_6 = new Button("Event Management");
+		button_6 = new Button("Event Management");
 		button_6.setForeground(Color.BLACK);
 		button_6.setFont(new Font("Dialog", Font.PLAIN, 12));
 		button_6.setBackground(new Color(30, 144, 255));
 		button_6.setBounds(309, 266, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_6);
+		button_6.addActionListener(this);
 		
-		Button button_7 = new Button("PR Management");
+		button_7 = new Button("PR Management");
 		button_7.setForeground(Color.BLACK);
 		button_7.setFont(new Font("Dialog", Font.PLAIN, 12));
 		button_7.setBackground(new Color(30, 144, 255));
 		button_7.setBounds(309, 310, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_7);
+		button_7.addActionListener(this);
 		
 		txtSelectAnOption = new JTextField();
 		txtSelectAnOption.setText("Select an option:");
@@ -197,5 +211,46 @@ public class AdministratorMain {
 				popup.show(e.getComponent(), e.getX(), e.getY());
 			}
 		});
+	}
+public void actionPerformed(ActionEvent e) {
+		
+		if(e.getSource()==button)
+		{
+			System.exit(0);
+		}
+		
+		else if(e.getSource()==button_2)
+		{
+			String[] args = null;
+			AdminMemberInfo.main(args);
+			frmCrossconnect6.dispose();
+		}
+		else if(e.getSource()==button_4)
+		{
+
+			String[] args = null;
+			AdminGuestInfo.main(args);
+			frmCrossconnect6.dispose();
+		}
+		else if(e.getSource()==button_5)
+		{
+			String[] args = null;
+			ministries.main(args);
+			frmCrossconnect6.dispose();
+			
+			
+		}
+		else if(e.getSource()==button_6)
+		{
+			String[] args = null;
+			EventSchedule.main(args);
+			frmCrossconnect6.dispose();
+		}
+		else if(e.getSource()==button_7)
+		{
+			
+		}
+	
+			
 	}
 }
