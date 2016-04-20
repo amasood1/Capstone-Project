@@ -18,13 +18,14 @@ public class ministries implements Printable, ActionListener, ItemListener{
     ArrayList<String> minDescriptions = new ArrayList<>();
     JTextArea txtDescription = new JTextArea();
     public static String username = "";
+    public static int userid = 0;
     /**
      * Launch the application.
      */
     public static void main(String[] args) {
         if(args.length > 0)
         {
-            username = args[0];
+            userid = Integer.parseInt(args[0]);
         }
 
         EventQueue.invokeLater(new Runnable() {
@@ -52,7 +53,6 @@ public class ministries implements Printable, ActionListener, ItemListener{
      */
     private void initialize() {
         //connect to database and get ministry data
-        int userid = 0;
         try {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
