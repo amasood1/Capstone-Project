@@ -1,26 +1,36 @@
-import java.awt.EventQueue;
+import java.awt.*;
 
 import javax.swing.*;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.Component;
+import javax.swing.table.TableColumn;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.Toolkit;
-import java.awt.Button;
 import java.awt.font.TextAttribute;
+import java.awt.print.PageFormat;
+import java.awt.print.Printable;
+import java.awt.print.PrinterException;
+import java.awt.print.PrinterJob;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Map;
 
 import com.toedter.calendar.JYearChooser;
 import com.toedter.calendar.JMonthChooser;
 
-public class MemberContribution implements ActionListener{
+public class MemberContribution implements ActionListener, Printable{
 
     JFrame frmCrossconnect3;
-    private JTextField textField;
-    private JTextField textField_2;
+    JFrame frmReport;
+   // private JTextField textField;
+   // private JTextField textField_2;
+    JMonthChooser monthChooser = new JMonthChooser();
+    JYearChooser yearChooser = new JYearChooser();
+    public static String username = "";
+    public static int userid = 0;
 
     /**
      * Launch the application.
@@ -200,7 +210,7 @@ public class MemberContribution implements ActionListener{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = {"chris"};
+                String[] args = {"1234"};
                 ministries.main(args);
                 frmCrossconnect3.dispose();
             }
@@ -281,11 +291,11 @@ public class MemberContribution implements ActionListener{
         lblSelectAYear_1.setBounds(509, 102, 233, 14);
         frmCrossconnect3.getContentPane().add(lblSelectAYear_1);
 
-        JMonthChooser monthChooser = new JMonthChooser();
+
         monthChooser.setBounds(300, 96, 98, 20);
         frmCrossconnect3.getContentPane().add(monthChooser);
 
-        JYearChooser yearChooser = new JYearChooser();
+
         yearChooser.setBounds(593, 96, 47, 20);
         frmCrossconnect3.getContentPane().add(yearChooser);
 
@@ -310,7 +320,20 @@ public class MemberContribution implements ActionListener{
         }
         if("GENERATE".equals(e.getActionCommand()))
         {
-            JOptionPane.showMessageDialog(frmCrossconnect3, "NOT YET IMPLEMENTED");
+            //JOptionPane.showMessageDialog(frmCrossconnect3, "NOT YET IMPLEMENTED");
+            GenerateRoport(monthChooser.getMonth(), yearChooser.getYear());
+        }
+        if("PRINT".equals(e.getActionCommand()))
+        {
+            PrinterJob job = PrinterJob.getPrinterJob();
+            job.setPrintable(this);
+            boolean ok = job.printDialog();
+            if (ok) {
+                try {
+                    job.print();
+                } catch (PrinterException ex) {
+                }
+            }
         }
        /* if("FORWARD".equals(e.getActionCommand()))
         {
@@ -321,6 +344,102 @@ public class MemberContribution implements ActionListener{
 
         }
         */
+    }
+
+    private void GenerateRoport(int month, int year)
+    {
+        frmReport = new JFrame();
+        frmReport.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\amina\\Documents\\crossconnect-Recovered.png"));
+        frmReport.setBackground(new Color(255, 255, 255));
+        frmReport.getContentPane().setForeground(Color.BLUE);
+        frmReport.getContentPane().setBackground(Color.WHITE);
+        frmReport.setTitle("CROSSCONNECT");
+        frmReport.setBounds(100, 100, 500, 500);
+        frmReport.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        frmReport.getContentPane().setLayout(null);
+        try {
+            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+            Connection con= DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
+            Statement s=con.createStatement();
+            //use s.executeQuery("SQL statement"); to execute statements on the database
+            String query = "SELECT * FROM Contribution WHERE User_ID=" + 1;//userid;
+            ResultSet rs = s.executeQuery(query);
+
+            ArrayList<String> dates = new ArrayList<String>();
+            ArrayList<String> don_id = new ArrayList<String>();
+            ArrayList<String> description = new ArrayList<String>();
+            ArrayList<String> type = new ArrayList<String>();
+            System.out.println(month);
+            while(rs.next())
+            {
+                dates.add(rs.getString("Date"));
+                don_id.add(rs.getString("Donation_ID"));
+            }
+            for(int i = 0; i <dates.size(); i++)
+            {
+                //Date shown as 2016-03-27
+                String check = dates.get(i);
+                int checkYear = Integer.parseInt(check.substring(0, 4));
+                int checkMonth = Integer.parseInt(check.substring(5,7));
+                if(month!= checkMonth || year!= checkYear)
+                {
+                    dates.remove(i);
+                    i--;
+                }
+
+            }
+            for(int i = 0; i < don_id.size(); i++)
+            {
+                ResultSet rsd = s.executeQuery("SELECT * FROM Donation WHERE Donation_ID=" + don_id.get(i));
+                while(rsd.next())
+                {
+                    description.add(rsd.getString("Description"));
+                    type.add(rsd.getString("Donation_Type"));
+                }
+            }
+            String data[][] = new String[dates.size()][3];
+            for(int i = 0; i < dates.size(); i++)
+            {
+                data[i][0] = dates.get(i);
+                data[i][1] = type.get(i);
+                data[i][2] = description.get(i);
+            }
+            String[] columnNames = {"Date", "Donation Type", "Description"};
+            JTable table = new JTable(data,columnNames);
+            JScrollPane scrollPane = new JScrollPane(table);
+            scrollPane.setBounds(10, 30, 470, 380);
+            scrollPane.setWheelScrollingEnabled(true);
+            frmReport.add(scrollPane);
+
+            JButton btnPrint = new JButton("PRINT");
+            btnPrint.setForeground(new Color(0, 0, 0));
+            btnPrint.setBackground(new Color(30, 144, 255));
+            btnPrint.setBounds(230, 420, 70, 22);
+            btnPrint.setActionCommand("PRINT");
+            frmReport.getContentPane().add(btnPrint);
+            btnPrint.addActionListener(this);
+
+            frmReport.setVisible(true);
+
+        } catch (Exception e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
+
+
+    public int print(Graphics g, PageFormat pf, int page)
+            throws PrinterException {
+        if (page > 0) {
+            return NO_SUCH_PAGE;
+        }
+
+        Graphics2D g2d = (Graphics2D)g;
+        g2d.translate(pf.getImageableX(), pf.getImageableY());
+
+        frmReport.printAll(g);
+
+        return PAGE_EXISTS;
     }
     private static void addPopup(Component component, final JPopupMenu popup) {
         component.addMouseListener(new MouseAdapter() {
