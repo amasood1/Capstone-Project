@@ -151,7 +151,7 @@ public class MemberContribution implements ActionListener, Printable{
             @Override
             public void mouseClicked(MouseEvent e) {
                 String[] args = null;
-                //  MemberAttendance.main(args);
+                MemberAttendance.main(args);
                 frmCrossconnect3.dispose();
             }
 
@@ -348,6 +348,7 @@ public class MemberContribution implements ActionListener, Printable{
 
     private void GenerateRoport(int month, int year)
     {
+        month = month + 1;
         frmReport = new JFrame();
         frmReport.setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\Users\\amina\\Documents\\crossconnect-Recovered.png"));
         frmReport.setBackground(new Color(255, 255, 255));

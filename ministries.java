@@ -23,7 +23,7 @@ public class ministries implements Printable, ActionListener, ItemListener{
      * Launch the application.
      */
     public static void main(String[] args) {
-        if(args.length > 0)
+        if(args != null)
         {
             userid = Integer.parseInt(args[0]);
         }
@@ -61,13 +61,12 @@ public class ministries implements Printable, ActionListener, ItemListener{
             String query = "SELECT * FROM Ministry";
             ResultSet rs = s.executeQuery(query);
 
-           // userid = rs.getInt("[User_ID]");
-
             while(rs.next())
             {
                 minNames.add(rs.getString("Ministry_Name"));
                 minDescriptions.add(rs.getString("Description"));
             }
+
             String nameQuery = "SELECT First_Name, Last_Name FROM [Users] WHERE User_ID="+userid;
             // ResultSet urs = s.executeQuery(nameQuery);
            /* while(urs.next())
@@ -168,7 +167,7 @@ public class ministries implements Printable, ActionListener, ItemListener{
             @Override
             public void mouseClicked(MouseEvent e) {
                 String[] args = null;
-                //  MemberAttendance.main(args);
+                MemberAttendance.main(args);
                 frmCrossconnect4.dispose();
             }
 
@@ -373,15 +372,6 @@ public class ministries implements Printable, ActionListener, ItemListener{
                 }
             }
         }
-       /* if("FORWARD".equals(e.getActionCommand()))
-        {
-
-        }
-        if("BACK".equals(e.getActionCommand()))
-        {
-
-        }
-        */
     }
 
 
