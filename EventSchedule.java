@@ -12,10 +12,6 @@ import javax.swing.JTextPane;
 import javax.swing.JToolBar;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import com.jgoodies.forms.layout.FormLayout;
-import com.jgoodies.forms.layout.ColumnSpec;
-import com.jgoodies.forms.layout.RowSpec;
-import com.jgoodies.forms.layout.FormSpecs;
 import java.awt.FlowLayout;
 import javax.swing.BoxLayout;
 import javax.swing.JTextField;
@@ -29,11 +25,13 @@ import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.Map;
 import java.awt.Choice;
 import java.awt.List;
 import java.awt.TextField;
@@ -69,7 +67,12 @@ public class EventSchedule {
 	private JTextField tfEventManagerName;
 	private JTextField tfEventManagerContact;
 	private JTextField tfEventTime;
-
+	private Button buttonDelete;
+	private Button buttonAdd;
+	private Button buttonView;
+	private Button buttonUpdate;
+	private Button buttonExit;
+	private Button buttonSend;
 	/**
 	 * Launch the application.
 	 */
@@ -89,7 +92,7 @@ public class EventSchedule {
 
 	/**
 	 * Create the application.
-	 * 
+	 *
 	 * @wbp.parser.entryPoint
 	 */
 	public EventSchedule() {
@@ -127,52 +130,191 @@ public class EventSchedule {
 		lblWelcomeToThe.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeToThe.setBounds(0, 24, 752, 14);
 		frmCrossconnect9.getContentPane().add(lblWelcomeToThe);
-		
-		JEditorPane dtrpnMainGuestInformation = new JEditorPane();
-		dtrpnMainGuestInformation.setText("Main \r\n\r\nMember  Information\r\n\r\n Ministries\r\n\r\n Guest Information\r\n\r\n PR Management\r\n\r\n");
-		dtrpnMainGuestInformation.setForeground(new Color(30, 144, 255));
-		dtrpnMainGuestInformation.setFont(new Font("Tahoma", Font.BOLD, 12));
-		dtrpnMainGuestInformation.setBackground(Color.WHITE);
-		dtrpnMainGuestInformation.setBounds(10, 79, 160, 512);
-		frmCrossconnect9.getContentPane().add(dtrpnMainGuestInformation);
-		
+
+		JLabel lblMemInfo = new JLabel("Member Information");
+		lblMemInfo.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblMemInfo.setForeground(new Color(30, 144, 255));
+		lblMemInfo.setBackground(Color.WHITE);
+		lblMemInfo.setBounds(24, 49, 144, 20);
+		lblMemInfo.addMouseListener(new MouseAdapter() {
+		    Font original;
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        String[] args = null;
+		     Member.main(args);
+		        frmCrossconnect9.dispose();
+		    }
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        original = e.getComponent().getFont();
+		        Map attributes = original.getAttributes();
+		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		        e.getComponent().setFont(original.deriveFont(attributes));
+		    }
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        e.getComponent().setFont(original);
+		    }
+		});
+		frmCrossconnect9.getContentPane().add(lblMemInfo);
+
+		JLabel lblAttendance = new JLabel("Attendance");
+		lblAttendance.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblAttendance.setForeground(new Color(30, 144, 255));
+		lblAttendance.setBackground(Color.WHITE);
+		lblAttendance.setBounds(24, 74, 144, 20);
+		lblAttendance.addMouseListener(new MouseAdapter() {
+		    Font original;
+
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        String[] args = null;
+		       MemberAttendance.main(args);
+		        frmCrossconnect9.dispose();
+		    }
+
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        original = e.getComponent().getFont();
+		        Map attributes = original.getAttributes();
+		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		        e.getComponent().setFont(original.deriveFont(attributes));
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        e.getComponent().setFont(original);
+		    }
+		});
+		frmCrossconnect9.getContentPane().add(lblAttendance);
+
+		JLabel lblEventCal = new JLabel("Event Calendar");
+		lblEventCal.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblEventCal.setForeground(new Color(30, 144, 255));
+		lblEventCal.setBackground(Color.WHITE);
+		lblEventCal.setBounds(24, 99, 144, 20);
+		lblEventCal.addMouseListener(new MouseAdapter() {
+		    Font original;
+
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        String[] args = null;
+		       EventSchedule.main(args);
+		        frmCrossconnect9.dispose();
+		    }
+
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        original = e.getComponent().getFont();
+		        Map attributes = original.getAttributes();
+		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		        e.getComponent().setFont(original.deriveFont(attributes));
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        e.getComponent().setFont(original);
+		    }
+		});
+		frmCrossconnect9.getContentPane().add(lblEventCal);
+
+		JLabel lblContribution = new JLabel("Contributions");
+		lblContribution.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblContribution.setForeground(new Color(30, 144, 255));
+		lblContribution.setBackground(Color.WHITE);
+		lblContribution.setBounds(24, 124, 144, 20);
+		lblContribution.addMouseListener(new MouseAdapter() {
+		    Font original;
+
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        String[] args = null;
+		        MemberContribution.main(args);
+		        frmCrossconnect9.dispose();
+		    }
+
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        original = e.getComponent().getFont();
+		        Map attributes = original.getAttributes();
+		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		        e.getComponent().setFont(original.deriveFont(attributes));
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        e.getComponent().setFont(original);
+		    }
+		});
+		frmCrossconnect9.getContentPane().add(lblContribution);
+
+		JLabel lblChurchDir = new JLabel("Church Directory");
+		lblChurchDir.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblChurchDir.setForeground(new Color(30, 144, 255));
+		lblChurchDir.setBackground(Color.WHITE);
+		lblChurchDir.setBounds(24, 149, 144, 20);
+		lblChurchDir.addMouseListener(new MouseAdapter() {
+		    Font original;
+
+		    @Override
+		    public void mouseClicked(MouseEvent e) {
+		        String[] args = null;
+		        ChurchDirectory.main(args);
+		        frmCrossconnect9.dispose();
+		    }
+
+		    @Override
+		    public void mouseEntered(MouseEvent e) {
+		        original = e.getComponent().getFont();
+		        Map attributes = original.getAttributes();
+		        attributes.put(TextAttribute.UNDERLINE, TextAttribute.UNDERLINE_ON);
+		        e.getComponent().setFont(original.deriveFont(attributes));
+		    }
+
+		    @Override
+		    public void mouseExited(MouseEvent e) {
+		        e.getComponent().setFont(original);
+		    }
+		});
+		frmCrossconnect9.getContentPane().add(lblChurchDir);
+
 		// Buttons
-		Button buttonAdd = new Button("ADD");
+		buttonAdd = new Button("ADD");
 		buttonAdd.setForeground(Color.BLACK);
 		buttonAdd.setBackground(new Color(30, 144, 255));
 		buttonAdd.setBounds(639, 146, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonAdd);
-		
-		Button buttonUpdate = new Button("UPDATE");
+
+		buttonUpdate = new Button("UPDATE");
 		buttonUpdate.setForeground(Color.BLACK);
 		buttonUpdate.setBackground(new Color(30, 144, 255));
 		buttonUpdate.setBounds(639, 181, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonUpdate);
-		
-		Button buttonDelete = new Button("DELETE");
-		button_2.setForeground(Color.BLACK);
-		button_2.setBackground(new Color(30, 144, 255));
-		button_2.setBounds(639, 226, 70, 22);
+
+		buttonDelete = new Button("DELETE");
+		buttonDelete.setForeground(Color.BLACK);
+		buttonDelete.setBackground(new Color(30, 144, 255));
+		buttonDelete.setBounds(639, 226, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonDelete);
-		
-		Button buttonExit = new Button("EXIT");
+
+		buttonExit = new Button("EXIT");
 		buttonExit.setForeground(Color.BLACK);
 		buttonExit.setBackground(new Color(30, 144, 255));
 		buttonExit.setBounds(639, 310, 70, 22);
-		frmCrossconnect9.getContentPane().add(buttonExit);	
-		
-		Button buttonSend = new Button("SEND REQUEST ");
+		frmCrossconnect9.getContentPane().add(buttonExit);
+
+		buttonSend = new Button("SEND REQUEST ");
 		buttonSend.setForeground(new Color(0, 0, 0));
 		buttonSend.setBackground(new Color(30, 144, 255));
 		buttonSend.setBounds(626, 266, 91, 22);
 		frmCrossconnect9.getContentPane().add(buttonSend);
-		
-		Button buttonView = new Button("VIEW");
+
+		buttonView = new Button("VIEW");
 		buttonView.setForeground(new Color(0, 0, 0));
 		buttonView.setBackground(new Color(30, 144, 255));
 		buttonView.setBounds(639, 111, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonView);
-		
+
 		//1. Member Name
 		JLabel lblNewLabel_1 = new JLabel("Name:");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
@@ -180,107 +322,107 @@ public class EventSchedule {
 		lblNewLabel_1.setBackground(Color.LIGHT_GRAY);
 		lblNewLabel_1.setBounds(224, 52, 46, 14);
 		frmCrossconnect9.getContentPane().add(lblNewLabel_1);
-		
+
 		tfMemberName = new JTextField();
 		tfMemberName.setBounds(494, 49, 86, 20);
 		frmCrossconnect9.getContentPane().add(tfMemberName);
 		tfMemberName.setColumns(10);
-		
+
 		// 2. Member ID
 		JLabel lblNewLabel = new JLabel("ID:");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblNewLabel.setForeground(new Color(0, 0, 205));
 		lblNewLabel.setBounds(446, 52, 38, 14);
 		frmCrossconnect9.getContentPane().add(lblNewLabel);
-		
+
 		tfMemberID = new JTextField();
 		tfMemberID.setBounds(274, 49, 86, 20);
 		frmCrossconnect9.getContentPane().add(tfMemberID);
 		tfMemberID.setColumns(10);
-		
+
 		// 3. Date Entry
 		JLabel lblEnterMemberName = new JLabel("Select the date for the event ");
 		lblEnterMemberName.setBounds(188, 95, 172, 14);
 		frmCrossconnect9.getContentPane().add(lblEnterMemberName);
-		
+
 		textDateEntry = new JTextArea();
 		textDateEntry.setBounds(494, 154, 4, 22);
 		frmCrossconnect9.getContentPane().add(textDateEntry);
-		
+
 		// 4. Date Chooser
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(196, 113, 91, 20);
 		frmCrossconnect9.getContentPane().add(dateChooser);
-		
+
 		// 5. Month Chooser
 		JLabel lblSelectTheMonth = new JLabel("Select the month for the event");
 		lblSelectTheMonth.setBounds(391, 95, 189, 14);
 		frmCrossconnect9.getContentPane().add(lblSelectTheMonth);
-		
+
 		monthChooser = new JMonthChooser();
 		monthChooser.setBounds(400, 113, 98, 20);
 		frmCrossconnect9.getContentPane().add(monthChooser);
-		
+
 		// 6. Event Type
 		JLabel lblEventType = new JLabel("Event Type");
 		lblEventType.setBounds(188, 154, 82, 14);
 		frmCrossconnect9.getContentPane().add(lblEventType);
-		
+
 		choiceEventType = new Choice();
 		choiceEventType.setBounds(196, 183, 91, 20);
-		frmCrossconnect9.getContentPane().add(choice);
+		frmCrossconnect9.getContentPane().add(choiceEventType);
 		choiceEventType.add("Birthday");
 		choiceEventType.add("Wedding");
 		choiceEventType.add("Charity");
-		
+
 		// 7. Number of Guests
 		JLabel lblNumberOfGuets = new JLabel("Number of guests");
 		lblNumberOfGuets.setBounds(188, 224, 117, 14);
 		frmCrossconnect9.getContentPane().add(lblNumberOfGuets);
-		
+
 		tfGuestNum = new JTextField();
 		tfGuestNum.setBounds(201, 244, 86, 20);
 		frmCrossconnect9.getContentPane().add(tfGuestNum);
 		tfGuestNum.setColumns(10);
-		
+
 		// 8. Room Number
 		JLabel lblRoomNumber = new JLabel("Room Number: ");
 		lblRoomNumber.setBounds(391, 224, 117, 14);
-		frmCrossconnect9.getContentPane().add(lblRoomNumber);		
-		
+		frmCrossconnect9.getContentPane().add(lblRoomNumber);
+
 		choiceRoomNum = new Choice();
 		choiceRoomNum.setBounds(391, 244, 107, 20);
 		frmCrossconnect9.getContentPane().add(choiceRoomNum);
-		
+
 		choiceRoomNum.add("Room 1: Accomodates 15 people");
 		choiceRoomNum.add("Room 2: Accomodates 25 people");
 		choiceRoomNum.add("Room 3: Accomodates 50 people");
-		
+
 		// 9. Event Manager Name
 		JLabel lblEventManagerName = new JLabel("Event Manager Name:");
 		lblEventManagerName.setBounds(188, 294, 130, 14);
 		frmCrossconnect9.getContentPane().add(lblEventManagerName);
-		
+
 		tfEventManagerName = new JTextField();
-		textField_3.setBounds(201, 312, 86, 20);
+		tfEventManagerName.setBounds(201, 312, 86, 20);
 		frmCrossconnect9.getContentPane().add(tfEventManagerName);
 		tfEventManagerName.setColumns(10);
-		
+
 		// 10. Event Manager Contact
 		JLabel lblEventManagerContact = new JLabel("Event Manager Contact");
 		lblEventManagerContact.setBounds(391, 294, 139, 14);
 		frmCrossconnect9.getContentPane().add(lblEventManagerContact);
-		
+
 		tfEventManagerContact = new JTextField();
 		tfEventManagerContact.setBounds(391, 312, 86, 20);
 		frmCrossconnect9.getContentPane().add(tfEventManagerContact);
 		tfEventManagerContact.setColumns(10);
-		
+
 		// 11. Time of Event
 		JLabel lblTimeOfEvent = new JLabel("Time of Event");
 		lblTimeOfEvent.setBounds(391, 159, 93, 14);
 		frmCrossconnect9.getContentPane().add(lblTimeOfEvent);
-		
+
 		tfEventTime = new JTextField();
 		tfEventTime.setBounds(391, 183, 86, 20);
 		frmCrossconnect9.getContentPane().add(tfEventTime);
@@ -306,11 +448,9 @@ public class EventSchedule {
 			}
 		});
 	}
-	public Choice getChoice() {
-		return choice;
-	}
+
 public void actionPerformed(ActionEvent e) {
-		
+
 		if(e.getSource()==buttonAdd) // SQL ADD
 		{
 			System.out.println("Member Name:" + tfMemberName.getText());
@@ -323,23 +463,23 @@ public void actionPerformed(ActionEvent e) {
 			System.out.println("Event Manager Name:" + tfEventManagerName.getText());
 			System.out.println("Event Manager Contact:" + tfEventManagerContact.getText());
 			System.out.println("Event Time:" + tfEventTime.getText());
-			
+
 			try {
 				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 				Statement s=con.createStatement();
-				
+
 				String queryString="'"+tfMemberName.getText()+"','"+tfMemberID.getText()+"','"+
 				dateChooser.getDateFormatString()+"','"+monthChooser.getDateFormatString()+"','"+
 				choiceEventType.getSelectedItem()+"','"+tfGuestNum.getText()+"','"+
 				choiceRoomNum.getSelectedItem()+"','"+tfEventManagerName.getText()+"','"+
 				tfEventManagerContact.getText()+"','"+tfEventTime.getText()+"'";
-				
-				System.out.println(queryString);	
+
+				System.out.println(queryString);
 				s.execute("INSERT INTO [Events](Event_ID,Member_Name,Member_ID,Day,Month,Event_Type,Guest_Num,Room_Num,Contact_Name,Contact_Contact,Event_Time)"
 					+ "VALUES("+queryString+",'"+d+"','NC')");
-				
-				
+
+
 			} catch (Exception x) {
 				// TODO Auto-generated catch block
 				x.printStackTrace();
@@ -353,8 +493,8 @@ public void actionPerformed(ActionEvent e) {
 				Statement s=con.createStatement();
 
 				s.execute("DELETE FROM [Events] WHERE Event_ID='"+eventID.getText()+"'");
-				
-				
+
+
 			} catch (Exception x) {
 				// TODO Auto-generated catch block
 				x.printStackTrace();
@@ -377,11 +517,11 @@ public void actionPerformed(ActionEvent e) {
 								   "Manager_Name=" + tfEventManagerName.getText()+","+
 						           "Manager_Contact=" + tfEventManagerContact.getText()+","+
 								   "Event_Time=" + tfEventTime.getText();
-				
-				// 
+
+				//
 				s.execute("UPDATE [Events]" + queryString + "WHERE Event_ID='"+eventID.getText()+"'");
-				
-				
+
+
 			} catch (Exception x) {
 				// TODO Auto-generated catch block
 				x.printStackTrace();
@@ -395,8 +535,8 @@ public void actionPerformed(ActionEvent e) {
 				Statement s=con.createStatement();
 
 				ResultSet rs = s.execute("SELECT FROM [Events] WHERE Event_ID='"+eventID.getText()+"'");
-				
-				tfMemberName.setText(rs.getObject("Member_Name"));
+
+				tfMemberName.setText((String) rs.getObject("Member_Name"));
 				tfMemberID.setText((String)rs.getObject("Member_ID"));
 				dateChooser.setDateFormatString((String)rs.getObject("Date"));
 				monthChooser.setDateFormatString((String)rs.getObject("Month"));
@@ -406,8 +546,8 @@ public void actionPerformed(ActionEvent e) {
 				tfEventManagerName.setText((String)rs.getObject("Manager_Name"));
 				tfEventManagerContact.setText((String)rs.getObject("Manager_Contact"));
 				tfEventTime.setText((String)rs.getObject("Event_Time"));
-				
-				
+
+
 			} catch (Exception x) {
 				// TODO Auto-generated catch block
 				x.printStackTrace();
