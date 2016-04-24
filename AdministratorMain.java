@@ -49,7 +49,7 @@ public class AdministratorMain implements ActionListener {
 	JFrame frmCrossconnect6;
 	private JTextField textField;
 	private JTextField textField_2;
-	private JTextField txtSelectAnOption;
+	private JLabel txtSelectAnOption;
 	private Button button;
 	private Button button_2;
 	private Button button_4;
@@ -76,7 +76,7 @@ public class AdministratorMain implements ActionListener {
 
 	/**
 	 * Create the application.
-	 * 
+	 *
 	 * @wbp.parser.entryPoint
 	 */
 	public AdministratorMain() {
@@ -144,7 +144,7 @@ public class AdministratorMain implements ActionListener {
 		button.setBounds(358, 463, 99, 23);
 		frmCrossconnect6.getContentPane().add(button);
 		button.addActionListener(this);
-		
+
 		button_2 = new Button("Member Information");
 		button_2.setFont(new Font("Dialog", Font.PLAIN, 12));
 		button_2.setForeground(new Color(0, 0, 0));
@@ -152,7 +152,7 @@ public class AdministratorMain implements ActionListener {
 		button_2.setBounds(309, 145, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_2);
 		button_2.addActionListener(this);
-		
+
 		button_4 = new Button("Guest Information");
 		button_4.setForeground(Color.BLACK);
 		button_4.setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -160,7 +160,7 @@ public class AdministratorMain implements ActionListener {
 		button_4.setBounds(309, 183, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_4);
 		button_4.addActionListener(this);
-		
+
 		button_5 = new Button("Ministries");
 		button_5.setForeground(Color.BLACK);
 		button_5.setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -168,7 +168,7 @@ public class AdministratorMain implements ActionListener {
 		button_5.setBounds(309, 222, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_5);
 		button_5.addActionListener(this);
-		
+
 		button_6 = new Button("Event Management");
 		button_6.setForeground(Color.BLACK);
 		button_6.setFont(new Font("Dialog", Font.PLAIN, 12));
@@ -176,20 +176,20 @@ public class AdministratorMain implements ActionListener {
 		button_6.setBounds(309, 266, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_6);
 		button_6.addActionListener(this);
-		
-		button_7 = new Button("PR Management");
+
+		button_7 = new Button("Church Directory");
 		button_7.setForeground(Color.BLACK);
 		button_7.setFont(new Font("Dialog", Font.PLAIN, 12));
 		button_7.setBackground(new Color(30, 144, 255));
 		button_7.setBounds(309, 310, 190, 23);
 		frmCrossconnect6.getContentPane().add(button_7);
 		button_7.addActionListener(this);
-		
-		txtSelectAnOption = new JTextField();
+
+		txtSelectAnOption = new JLabel();
 		txtSelectAnOption.setText("Select an option:");
 		txtSelectAnOption.setBounds(187, 114, 114, 20);
 		frmCrossconnect6.getContentPane().add(txtSelectAnOption);
-		txtSelectAnOption.setColumns(10);
+
 
 	}
 
@@ -213,12 +213,12 @@ public class AdministratorMain implements ActionListener {
 		});
 	}
 public void actionPerformed(ActionEvent e) {
-		
+
 		if(e.getSource()==button)
 		{
 			System.exit(0);
 		}
-		
+
 		else if(e.getSource()==button_2)
 		{
 			String[] args = null;
@@ -232,13 +232,14 @@ public void actionPerformed(ActionEvent e) {
 			AdminGuestInfo.main(args);
 			frmCrossconnect6.dispose();
 		}
+
 		else if(e.getSource()==button_5)
 		{
 			String[] args = null;
 			ministries.main(args);
 			frmCrossconnect6.dispose();
-			
-			
+
+
 		}
 		else if(e.getSource()==button_6)
 		{
@@ -248,9 +249,11 @@ public void actionPerformed(ActionEvent e) {
 		}
 		else if(e.getSource()==button_7)
 		{
-			
+			String[] args=null;
+			ChurchDirectory.main(args);
+			frmCrossconnect6.dispose();
 		}
-	
-			
+
+
 	}
 }

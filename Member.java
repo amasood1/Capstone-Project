@@ -54,26 +54,26 @@ import java.awt.Button;
 public class Member implements ActionListener {
 
 	JFrame frmCrossconnect;
-	private JTextField textField;
-	private JTextField textField_1;
-	private JTextField textField_2;
-	private JTextField textField_3;
-	private JTextField textField_4;
-	private JTextField textField_5;
-	private JTextField textField_6;
-	private JTextField textField_7;
-	private JTextField textField_8;
-	private JTextField textField_9;
-	private JTextField textField_10;
-	private JTextField textField_11;
-	private JTextField textField_12;
-	private JTextField textField_13;
-	private JTextField textField_14;
-	private Button button;
-	private Button button_1;
-	private Button button_2;
-	private Button button_3;
-	private Choice choice;
+	private JTextField memberID;
+	private JTextField familyID;
+	private JTextField memberName;
+	private JTextField birthDate;
+	private JTextField age;
+	private JTextField MaritalStatus;
+	private JTextField memberStatus;
+	private JTextField joinDate;
+	private JTextField leaveDate;
+	private JTextField address;
+	private JTextField homePhone;
+	private JTextField cellPhone;
+	private JTextField email;
+	private JTextField city;
+	private JTextField zip;
+	private Button add;
+	private Button update;
+	private Button delete;
+	private Button exit;
+	private Choice familyMembers;
 	//protected Object frmCrossconnect2;
 
 	/**
@@ -191,80 +191,80 @@ public class Member implements ActionListener {
 		lblEmail.setBounds(274, 421, 46, 14);
 		frmCrossconnect.getContentPane().add(lblEmail);
 
-		textField = new JTextField();
-		textField.setBounds(442, 49, 86, 20);
-		frmCrossconnect.getContentPane().add(textField);
-		textField.setColumns(10);
+		memberID = new JTextField();
+		memberID.setBounds(442, 49, 86, 20);
+		frmCrossconnect.getContentPane().add(memberID);
+		memberID.setColumns(10);
 
-		textField_1 = new JTextField();
-		textField_1.setBounds(578, 95, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_1);
-		textField_1.setColumns(10);
+		familyID = new JTextField();
+		familyID.setBounds(578, 95, 86, 20);
+		frmCrossconnect.getContentPane().add(familyID);
+		familyID.setColumns(10);
 
-		textField_2 = new JTextField();
-		textField_2.setBounds(274, 49, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_2);
-		textField_2.setColumns(10);
+		memberName = new JTextField();
+		memberName.setBounds(274, 49, 86, 20);
+		frmCrossconnect.getContentPane().add(memberName);
+		memberName.setColumns(10);
 
-		textField_3 = new JTextField();
-		textField_3.setBounds(319, 95, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_3);
-		textField_3.setColumns(10);
+		birthDate = new JTextField();
+		birthDate.setBounds(319, 95, 86, 20);
+		frmCrossconnect.getContentPane().add(birthDate);
+		birthDate.setColumns(10);
 
-		textField_4 = new JTextField();
-		textField_4.setBounds(319, 131, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_4);
-		textField_4.setColumns(10);
+		age = new JTextField();
+		age.setBounds(319, 131, 86, 20);
+		frmCrossconnect.getContentPane().add(age);
+		age.setColumns(10);
 
-		textField_5 = new JTextField();
-		textField_5.setBounds(319, 173, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_5);
-		textField_5.setColumns(10);
+		MaritalStatus = new JTextField();
+		MaritalStatus.setBounds(319, 173, 86, 20);
+		frmCrossconnect.getContentPane().add(MaritalStatus);
+		MaritalStatus.setColumns(10);
 
-		textField_6 = new JTextField();
-		textField_6.setBounds(578, 173, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_6);
-		textField_6.setColumns(10);
+		memberStatus = new JTextField();
+		memberStatus.setBounds(578, 173, 86, 20);
+		frmCrossconnect.getContentPane().add(memberStatus);
+		memberStatus.setColumns(10);
 
-		textField_7 = new JTextField();
-		textField_7.setBounds(319, 217, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_7);
-		textField_7.setColumns(10);
+		joinDate = new JTextField();
+		joinDate.setBounds(319, 217, 86, 20);
+		frmCrossconnect.getContentPane().add(joinDate);
+		joinDate.setColumns(10);
 
-		textField_8 = new JTextField();
-		textField_8.setBounds(578, 217, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_8);
-		textField_8.setColumns(10);
+		leaveDate = new JTextField();
+		leaveDate.setBounds(578, 217, 86, 20);
+		frmCrossconnect.getContentPane().add(leaveDate);
+		leaveDate.setColumns(10);
 
-		textField_9 = new JTextField();
-		textField_9.setBounds(224, 304, 440, 23);
-		frmCrossconnect.getContentPane().add(textField_9);
-		textField_9.setColumns(10);
+		address = new JTextField();
+		address.setBounds(224, 304, 440, 23);
+		frmCrossconnect.getContentPane().add(address);
+		address.setColumns(10);
 
-		textField_10 = new JTextField();
-		textField_10.setBounds(319, 380, 92, 20);
-		frmCrossconnect.getContentPane().add(textField_10);
-		textField_10.setColumns(10);
+		homePhone = new JTextField();
+		homePhone.setBounds(319, 380, 92, 20);
+		frmCrossconnect.getContentPane().add(homePhone);
+		homePhone.setColumns(10);
 
-		textField_11 = new JTextField();
-		textField_11.setBounds(496, 380, 96, 20);
-		frmCrossconnect.getContentPane().add(textField_11);
-		textField_11.setColumns(10);
+		cellPhone = new JTextField();
+		cellPhone.setBounds(496, 380, 96, 20);
+		frmCrossconnect.getContentPane().add(cellPhone);
+		cellPhone.setColumns(10);
 
-		textField_12 = new JTextField();
-		textField_12.setBounds(319, 418, 152, 20);
-		frmCrossconnect.getContentPane().add(textField_12);
-		textField_12.setColumns(10);
+		email = new JTextField("email123@host.com");
+		email.setBounds(319, 418, 152, 20);
+		frmCrossconnect.getContentPane().add(email);
+		email.setColumns(10);
 
-		choice = new Choice();
-		choice.setBounds(578, 134, 86, 20);
-		frmCrossconnect.getContentPane().add(choice);
-		choice.add("0");
-		choice.add("1");
-		choice.add("2");
-		choice.add("3");
-		choice.add("4");
-		choice.add("5+");
+		familyMembers = new Choice();
+		familyMembers.setBounds(578, 134, 86, 20);
+		frmCrossconnect.getContentPane().add(familyMembers);
+		familyMembers.add("0");
+		familyMembers.add("1");
+		familyMembers.add("2");
+		familyMembers.add("3");
+		familyMembers.add("4");
+		familyMembers.add("5+");
 
 		JLabel lblFamilyMembers = new JLabel("Family Members:");
 		lblFamilyMembers.setBounds(477, 134, 116, 14);
@@ -278,15 +278,15 @@ public class Member implements ActionListener {
 		lblZipcode.setBounds(452, 338, 46, 14);
 		frmCrossconnect.getContentPane().add(lblZipcode);
 
-		textField_13 = new JTextField();
-		textField_13.setBounds(319, 338, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_13);
-		textField_13.setColumns(10);
+		city = new JTextField();
+		city.setBounds(319, 338, 86, 20);
+		frmCrossconnect.getContentPane().add(city);
+		city.setColumns(10);
 
-		textField_14 = new JTextField();
-		textField_14.setBounds(496, 338, 86, 20);
-		frmCrossconnect.getContentPane().add(textField_14);
-		textField_14.setColumns(10);
+		zip = new JTextField();
+		zip.setBounds(496, 338, 86, 20);
+		frmCrossconnect.getContentPane().add(zip);
+		zip.setColumns(10);
 
 		JLabel lblMemInfo = new JLabel("Member Information");
 		lblMemInfo.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -435,33 +435,33 @@ public class Member implements ActionListener {
 		});
 		frmCrossconnect.getContentPane().add(lblChurchDir);
 
-		button = new Button("ADD");
-		button.setForeground(new Color(0, 0, 0));
-		button.setBackground(new Color(30, 144, 255));
-		button.setBounds(224, 470, 70, 22);
-		frmCrossconnect.getContentPane().add(button);
-		button.addActionListener(this);
+		add = new Button("ADD");
+		add.setForeground(new Color(0, 0, 0));
+		add.setBackground(new Color(30, 144, 255));
+		add.setBounds(224, 470, 70, 22);
+		frmCrossconnect.getContentPane().add(add);
+		add.addActionListener(this);
 
-		button_1 = new Button("UPDATE");
-		button_1.setForeground(new Color(0, 0, 0));
-		button_1.setBackground(new Color(30, 144, 255));
-		button_1.setBounds(367, 470, 70, 22);
-		frmCrossconnect.getContentPane().add(button_1);
-		button_1.addActionListener(this);
+		update = new Button("UPDATE");
+		update.setForeground(new Color(0, 0, 0));
+		update.setBackground(new Color(30, 144, 255));
+		update.setBounds(367, 470, 70, 22);
+		frmCrossconnect.getContentPane().add(update);
+		update.addActionListener(this);
 
-		button_2 = new Button("DELETE");
-		button_2.setForeground(new Color(0, 0, 0));
-		button_2.setBackground(new Color(30, 144, 255));
-		button_2.setBounds(511, 470, 70, 22);
-		frmCrossconnect.getContentPane().add(button_2);
-		button_2.addActionListener(this);
+		delete = new Button("DELETE");
+		delete.setForeground(new Color(0, 0, 0));
+		delete.setBackground(new Color(30, 144, 255));
+		delete.setBounds(511, 470, 70, 22);
+		frmCrossconnect.getContentPane().add(delete);
+		delete.addActionListener(this);
 
-		button_3 = new Button("EXIT");
-		button_3.setForeground(new Color(0, 0, 0));
-		button_3.setBackground(new Color(30, 144, 255));
-		button_3.setBounds(367, 510, 70, 22);
-		frmCrossconnect.getContentPane().add(button_3);
-		button_3.addActionListener(this);
+		exit = new Button("MAIN");
+		exit.setForeground(new Color(0, 0, 0));
+		exit.setBackground(new Color(30, 144, 255));
+		exit.setBounds(367, 510, 70, 22);
+		frmCrossconnect.getContentPane().add(exit);
+		exit.addActionListener(this);
 	}
 	private static void addPopup(Component component, final JPopupMenu popup) {
 		component.addMouseListener(new MouseAdapter() {
@@ -482,82 +482,82 @@ public class Member implements ActionListener {
 	}
 public void actionPerformed(ActionEvent e) {
 
-		if(e.getSource()==button_3)
+		if(e.getSource()==exit)
 		{
 			System.exit(0);
 		}
-		else if(e.getSource()==button_1)
+		else if(e.getSource()==update)
 		{
 			String infoString="";
-			infoString+="Member ID: "+textField.getText()+"\n";
-			infoString+="Member Name: "+textField_2.getText()+"\n";
-			infoString+="Date Of Birth: "+textField_3.getText()+"\n";
-			infoString+="Family ID: "+textField_1.getText()+"\n";
-			infoString+="Family Members: "+choice.getSelectedItem()+"\n";
-			infoString+="Age: "+textField_4.getText()+"\n";
-			infoString+="Marital Status: "+textField_5.getText()+"\n";
-			infoString+="Member Status: "+textField_6.getText()+"\n";
-			infoString+="Join Date: "+textField_7.getText()+"\n";
-			infoString+="Leave Date: "+textField_8.getText()+"\n";
-			infoString+="Address: "+textField_9.getText()+"\n";
-			infoString+="City: "+textField_13.getText()+"\n";
-			infoString+="Zip code: "+textField_14.getText()+"\n";
-			infoString+="Home Phone: "+textField_10.getText()+"\n";
-			infoString+="Cell Phone: "+textField_11.getText()+"\n";
-			infoString+="Email: "+textField_12.getText()+"\n";
+			infoString+="Member ID: "+memberID.getText()+"\n";
+			infoString+="Member Name: "+memberName.getText()+"\n";
+			infoString+="Date Of Birth: "+birthDate.getText()+"\n";
+			infoString+="Family ID: "+familyID.getText()+"\n";
+			infoString+="Family Members: "+familyMembers.getSelectedItem()+"\n";
+			infoString+="Age: "+age.getText()+"\n";
+			infoString+="Marital Status: "+MaritalStatus.getText()+"\n";
+			infoString+="Member Status: "+memberStatus.getText()+"\n";
+			infoString+="Join Date: "+joinDate.getText()+"\n";
+			infoString+="Leave Date: "+leaveDate.getText()+"\n";
+			infoString+="Address: "+address.getText()+"\n";
+			infoString+="City: "+city.getText()+"\n";
+			infoString+="Zip code: "+zip.getText()+"\n";
+			infoString+="Home Phone: "+homePhone.getText()+"\n";
+			infoString+="Cell Phone: "+cellPhone.getText()+"\n";
+			infoString+="Email: "+email.getText()+"\n";
 
-			sendEmail(infoString,"Update");
+			sendEmail(infoString,"Update",email.getText());
 
 		}
-		else if(e.getSource()==button)
+		else if(e.getSource()==add)
 		{
 			String infoString="";
-			infoString+="Member ID: "+textField.getText()+"\n";
-			infoString+="Member Name: "+textField_2.getText()+"\n";
-			infoString+="Date Of Birth: "+textField_3.getText()+"\n";
-			infoString+="Family ID: "+textField_1.getText()+"\n";
-			infoString+="Family Members: "+choice.getSelectedItem()+"\n";
-			infoString+="Age: "+textField_4.getText()+"\n";
-			infoString+="Marital Status: "+textField_5.getText()+"\n";
-			infoString+="Member Status: "+textField_6.getText()+"\n";
-			infoString+="Join Date: "+textField_7.getText()+"\n";
-			infoString+="Leave Date: "+textField_8.getText()+"\n";
-			infoString+="Address: "+textField_9.getText()+"\n";
-			infoString+="City: "+textField_13.getText()+"\n";
-			infoString+="Zip code: "+textField_14.getText()+"\n";
-			infoString+="Home Phone: "+textField_10.getText()+"\n";
-			infoString+="Cell Phone: "+textField_11.getText()+"\n";
-			infoString+="Email: "+textField_12.getText()+"\n";
+			infoString+="Member ID: "+memberID.getText()+"\n";
+			infoString+="Member Name: "+memberName.getText()+"\n";
+			infoString+="Date Of Birth: "+birthDate.getText()+"\n";
+			infoString+="Family ID: "+familyID.getText()+"\n";
+			infoString+="Family Members: "+familyMembers.getSelectedItem()+"\n";
+			infoString+="Age: "+age.getText()+"\n";
+			infoString+="Marital Status: "+MaritalStatus.getText()+"\n";
+			infoString+="Member Status: "+memberStatus.getText()+"\n";
+			infoString+="Join Date: "+joinDate.getText()+"\n";
+			infoString+="Leave Date: "+leaveDate.getText()+"\n";
+			infoString+="Address: "+address.getText()+"\n";
+			infoString+="City: "+city.getText()+"\n";
+			infoString+="Zip code: "+zip.getText()+"\n";
+			infoString+="Home Phone: "+homePhone.getText()+"\n";
+			infoString+="Cell Phone: "+cellPhone.getText()+"\n";
+			infoString+="Email: "+email.getText()+"\n";
 
-			sendEmail(infoString,"Add");
+			sendEmail(infoString,"Add",email.getText());
 		}
-		else if(e.getSource()==button_2)
+		else if(e.getSource()==delete)
 		{
 			String infoString="";
-			infoString+="Member ID: "+textField.getText()+"\n";
-			infoString+="Member Name: "+textField_2.getText()+"\n";
-			infoString+="Date Of Birth: "+textField_3.getText()+"\n";
-			infoString+="Family ID: "+textField_1.getText()+"\n";
-			infoString+="Family Members: "+choice.getSelectedItem()+"\n";
-			infoString+="Age: "+textField_4.getText()+"\n";
-			infoString+="Marital Status: "+textField_5.getText()+"\n";
-			infoString+="Member Status: "+textField_6.getText()+"\n";
-			infoString+="Join Date: "+textField_7.getText()+"\n";
-			infoString+="Leave Date: "+textField_8.getText()+"\n";
-			infoString+="Address: "+textField_9.getText()+"\n";
-			infoString+="City: "+textField_13.getText()+"\n";
-			infoString+="Zip code: "+textField_14.getText()+"\n";
-			infoString+="Home Phone: "+textField_10.getText()+"\n";
-			infoString+="Cell Phone: "+textField_11.getText()+"\n";
-			infoString+="Email: "+textField_12.getText()+"\n";
+			infoString+="Member ID: "+memberID.getText()+"\n";
+			infoString+="Member Name: "+memberName.getText()+"\n";
+			infoString+="Date Of Birth: "+birthDate.getText()+"\n";
+			infoString+="Family ID: "+familyID.getText()+"\n";
+			infoString+="Family Members: "+familyMembers.getSelectedItem()+"\n";
+			infoString+="Age: "+age.getText()+"\n";
+			infoString+="Marital Status: "+MaritalStatus.getText()+"\n";
+			infoString+="Member Status: "+memberStatus.getText()+"\n";
+			infoString+="Join Date: "+joinDate.getText()+"\n";
+			infoString+="Leave Date: "+leaveDate.getText()+"\n";
+			infoString+="Address: "+address.getText()+"\n";
+			infoString+="City: "+city.getText()+"\n";
+			infoString+="Zip code: "+zip.getText()+"\n";
+			infoString+="Home Phone: "+homePhone.getText()+"\n";
+			infoString+="Cell Phone: "+cellPhone.getText()+"\n";
+			infoString+="Email: "+email.getText()+"\n";
 
-			sendEmail(infoString,"Delete");
+			sendEmail(infoString,"Delete",email.getText());
 		}
 
 
 
 	}
-	public static void sendEmail(String body,String requestType){
+	public static void sendEmail(String body,String requestType,String email){
 		Properties props = new Properties();
 		props.put("mail.smtp.host", "smtp.gmail.com");
 		props.put("mail.smtp.socketFactory.port", "465");
@@ -583,7 +583,8 @@ public void actionPerformed(ActionEvent e) {
 			message.setText("A request has been made to add a user with the following credentials to the system:\n "+body);
 
 			Transport.send(message);
-
+			message.setRecipients(Message.RecipientType.TO,InternetAddress.parse(email));
+			Transport.send(message);
 			System.out.println(requestType+" request sent to Admin");
 			JOptionPane.showMessageDialog(null, requestType+" request sent to Admin");
 
