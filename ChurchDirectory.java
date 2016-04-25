@@ -29,6 +29,8 @@ import java.util.Properties;
 public class ChurchDirectory implements ActionListener{
 
     JFrame frmCrossconnect5;
+    public static String username = "";
+    public static String userid = "";
     String email;
    /* private JTextField textField;
     private JTextField textField_2;*/
@@ -37,6 +39,11 @@ public class ChurchDirectory implements ActionListener{
      * Launch the application.
      */
     public static void main(String[] args) {
+        if(args.length > 0)
+        {
+            userid = args[0];
+            username = args[1];
+        }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -89,38 +96,19 @@ public class ChurchDirectory implements ActionListener{
         lblWelcomeToThe.setBounds(0, 24, 752, 14);
         frmCrossconnect5.getContentPane().add(lblWelcomeToThe);
 
-        JLabel lblNewLabel = new JLabel("Member ID:");
+        JLabel lblNewLabel = new JLabel("Member ID: " + userid);
         lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblNewLabel.setForeground(new Color(0, 0, 205));
-        lblNewLabel.setBounds(370, 52, 67, 14);
+        lblNewLabel.setBounds(370, 52, 100, 14);
         frmCrossconnect5.getContentPane().add(lblNewLabel);
 
-        JLabel lblNewLabel_1 = new JLabel("Name:");
+        JLabel lblNewLabel_1 = new JLabel("Name: " + userid);
         lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblNewLabel_1.setForeground(new Color(0, 0, 205));
         lblNewLabel_1.setBackground(Color.LIGHT_GRAY);
-        lblNewLabel_1.setBounds(224, 52, 46, 14);
+        lblNewLabel_1.setBounds(224, 52, 120, 14);
         frmCrossconnect5.getContentPane().add(lblNewLabel_1);
 
-       /* textField = new JTextField();
-        textField.setBounds(442, 49, 86, 20);
-        frmCrossconnect5.getContentPane().add(textField);
-        textField.setColumns(10);
-
-        textField_2 = new JTextField();
-        textField_2.setBounds(274, 49, 86, 20);
-        frmCrossconnect5.getContentPane().add(textField_2);
-        textField_2.setColumns(10);
-
-
-        JEditorPane dtrpnAttendance = new JEditorPane();
-        dtrpnAttendance.setFont(new Font("Tahoma", Font.BOLD, 12));
-        dtrpnAttendance.setForeground(new Color(30, 144, 255));
-        dtrpnAttendance.setBackground(Color.WHITE);
-        dtrpnAttendance.setText(" Member Information\r\n\r\n Attendance\r\n\r\n Event Calendar\r\n\r\n Contributions\r\n\r\n Ministries\r\n");
-        dtrpnAttendance.setBounds(24, 49, 190, 512);
-        frmCrossconnect5.getContentPane().add(dtrpnAttendance);
-*/
         JLabel lblMemInfo = new JLabel("Member Information");
         lblMemInfo.setFont(new Font("Tahoma", Font.BOLD, 12));
         lblMemInfo.setForeground(new Color(30, 144, 255));
@@ -130,8 +118,8 @@ public class ChurchDirectory implements ActionListener{
             Font original;
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = null;
-                //  Member.main(args);
+                String[] args = {userid, username};
+                Member.main(args);
                 frmCrossconnect5.dispose();
             }
             @Override
@@ -158,7 +146,7 @@ public class ChurchDirectory implements ActionListener{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = null;
+                String[] args = {userid, username};
                 MemberAttendance.main(args);
                 frmCrossconnect5.dispose();
             }
@@ -188,8 +176,8 @@ public class ChurchDirectory implements ActionListener{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = null;
-                //  EventSchedule.main(args);
+                String[] args = {userid, username};
+                EventSchedule.main(args);
                 frmCrossconnect5.dispose();
             }
 
@@ -218,7 +206,7 @@ public class ChurchDirectory implements ActionListener{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args =null;
+                String[] args = {userid, username};
                 MemberContribution.main(args);
                 frmCrossconnect5.dispose();
             }
@@ -248,7 +236,7 @@ public class ChurchDirectory implements ActionListener{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = null;
+                String[] args = {userid, username};
                 ministries.main(args);
                 frmCrossconnect5.dispose();
             }
@@ -288,7 +276,7 @@ public class ChurchDirectory implements ActionListener{
         JButton btnEmail = new JButton("SEND E-MAIL");
         btnEmail.setForeground(new Color(0, 0, 0));
         btnEmail.setBackground(new Color(30, 144, 255));
-        btnEmail.setBounds(350, 420, 86, 22);
+        btnEmail.setBounds(330, 420, 126, 22);
         btnEmail.setActionCommand("EMAIL");
         frmCrossconnect5.getContentPane().add(btnEmail);
         btnEmail.addActionListener(this);
@@ -308,13 +296,14 @@ public class ChurchDirectory implements ActionListener{
             //use s.executeQuery("SQL statement"); to execute statements on the database
             String query = "SELECT * FROM [Users]";
             ResultSet rs = s.executeQuery(query);
-            String first, last;
+            String first, last, email, phone;
             while(rs.next())
             {
                 first = rs.getString("first_Name");
                 last = rs.getString("Last_Name");
                 email = rs.getString("Email");
-                list.add((first + " " + last + ": " + email));
+                phone = rs.getString("Phone1");
+                list.add((first + " " + last + ": " + email + ": "+phone));
                 System.out.print(rs.getString("First_Name") + " ");
                 System.out.print(rs.getString("Last_Name") + " ");
                 System.out.println(rs.getString("Email"));
@@ -337,12 +326,9 @@ public class ChurchDirectory implements ActionListener{
         }
         if("EMAIL".equals(e.getActionCommand()))
         {
-        	
-        	JFrame frame = new JFrame();
-        	String s = JOptionPane.showInputDialog(frame, "Enter email body:");
-        	sendEmail(s, "Directory", email);
-        	
-        	 
+            JFrame frame = new JFrame();
+            String s = JOptionPane.showInputDialog(frame, "Enter email body:");
+            sendEmail(s, "Directory", email);
         }
     }
 
@@ -362,39 +348,40 @@ public class ChurchDirectory implements ActionListener{
                 popup.show(e.getComponent(), e.getX(), e.getY());
             }
         });
+
     }
     public static void sendEmail(String body,String requestType,String email){
-		Properties props = new Properties();
-		props.put("mail.smtp.host", "smtp.gmail.com");
-		props.put("mail.smtp.socketFactory.port", "465");
-		props.put("mail.smtp.socketFactory.class",
-				"javax.net.ssl.SSLSocketFactory");
-		props.put("mail.smtp.auth", "true");
-		props.put("mail.smtp.port", "465");
+        Properties props = new Properties();
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.socketFactory.port", "465");
+        props.put("mail.smtp.socketFactory.class",
+                "javax.net.ssl.SSLSocketFactory");
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.port", "465");
 
-		Session session = Session.getDefaultInstance(props,
-			new javax.mail.Authenticator() {
-				protected PasswordAuthentication getPasswordAuthentication() {
-					return new PasswordAuthentication("jrdaughtridge@gmail.com","jr5d13nc");
-				}
-			});
+        Session session = Session.getDefaultInstance(props,
+                new javax.mail.Authenticator() {
+                    protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication("jrdaughtridge@gmail.com","jr5d13nc");
+                    }
+                });
 
-		try {
+        try {
 
-			Message message = new MimeMessage(session);
-			message.setFrom(new InternetAddress("jrdaughtridge@gmail.com"));
-			message.setRecipients(Message.RecipientType.TO,
-					InternetAddress.parse(email));
-			message.setSubject(requestType+" request");
-			message.setText(body);
+            Message message = new MimeMessage(session);
+            message.setFrom(new InternetAddress("jrdaughtridge@gmail.com"));
+            message.setRecipients(Message.RecipientType.TO,
+                    InternetAddress.parse(email));
+            message.setSubject(requestType+" request");
+            message.setText(body);
 
-			Transport.send(message);
-			System.out.println(requestType+" request sent to Admin");
-			JOptionPane.showMessageDialog(null, requestType+" request sent to Admin");
+            Transport.send(message);
+            System.out.println(requestType+" request sent to Admin");
+            JOptionPane.showMessageDialog(null, requestType+" request sent to Admin");
 
 
-		} catch (MessagingException e) {
-			throw new RuntimeException(e);
-		}
-	    }
+        } catch (MessagingException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

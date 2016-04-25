@@ -30,12 +30,17 @@ public class MemberContribution implements ActionListener, Printable{
     JMonthChooser monthChooser = new JMonthChooser();
     JYearChooser yearChooser = new JYearChooser();
     public static String username = "";
-    public static int userid = 0;
+    public static String userid = "";
 
     /**
      * Launch the application.
      */
     public static void main(String[] args) {
+        if(args.length > 0)
+        {
+            userid = args[0];
+            username = args[1];
+        }
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
@@ -88,18 +93,18 @@ public class MemberContribution implements ActionListener, Printable{
         lblWelcomeToThe.setBounds(0, 24, 752, 14);
         frmCrossconnect3.getContentPane().add(lblWelcomeToThe);
 
-        JLabel lblNewLabel = new JLabel("Member ID:");
-        lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 11));
-        lblNewLabel.setForeground(new Color(0, 0, 205));
-        lblNewLabel.setBounds(370, 52, 67, 14);
-        frmCrossconnect3.getContentPane().add(lblNewLabel);
+        JLabel lblMemId = new JLabel("Member ID: " + userid);
+        lblMemId.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lblMemId.setForeground(new Color(30, 144, 255));
+        lblMemId.setBounds(370, 52, 120, 14);
+        frmCrossconnect3.getContentPane().add(lblMemId);
 
-        JLabel lblNewLabel_1 = new JLabel("Name:");
-        lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
-        lblNewLabel_1.setForeground(new Color(0, 0, 205));
-        lblNewLabel_1.setBackground(Color.LIGHT_GRAY);
-        lblNewLabel_1.setBounds(224, 52, 46, 14);
-        frmCrossconnect3.getContentPane().add(lblNewLabel_1);
+        JLabel lblName = new JLabel("Name: " + username);
+        lblName.setFont(new Font("Tahoma", Font.BOLD, 11));
+        lblName.setForeground(new Color(30, 144, 255));
+        lblName.setBackground(Color.LIGHT_GRAY);
+        lblName.setBounds(224, 52, 100, 14);
+        frmCrossconnect3.getContentPane().add(lblName);
 
        /*
         txtID = new JTextField();
@@ -122,7 +127,7 @@ public class MemberContribution implements ActionListener, Printable{
             Font original;
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = null;
+                String[] args = {userid, username};
                 //  Member.main(args);
                 frmCrossconnect3.dispose();
             }
@@ -150,7 +155,7 @@ public class MemberContribution implements ActionListener, Printable{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = null;
+                String[] args = {userid, username};
                 MemberAttendance.main(args);
                 frmCrossconnect3.dispose();
             }
@@ -180,8 +185,8 @@ public class MemberContribution implements ActionListener, Printable{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = null;
-                //  EventSchedule.main(args);
+                String[] args = {userid, username};
+                EventSchedule.main(args);
                 frmCrossconnect3.dispose();
             }
 
@@ -210,7 +215,7 @@ public class MemberContribution implements ActionListener, Printable{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = {"1234"};
+                String[] args = {userid, username};
                 ministries.main(args);
                 frmCrossconnect3.dispose();
             }
@@ -240,8 +245,8 @@ public class MemberContribution implements ActionListener, Printable{
 
             @Override
             public void mouseClicked(MouseEvent e) {
-                String[] args = null;
-                // ChurchDirectory.main(args);
+                String[] args = {userid, username};
+                ChurchDirectory.main(args);
                 frmCrossconnect3.dispose();
             }
 
@@ -265,20 +270,6 @@ public class MemberContribution implements ActionListener, Printable{
         lblSelectAYear.setBounds(224, 102, 103, 14);
         frmCrossconnect3.getContentPane().add(lblSelectAYear);
 
-
-
-     /*   Button button = new Button("BACK");
-        button.setForeground(Color.BLACK);
-        button.setBackground(new Color(30, 144, 255));
-        button.setBounds(307, 232, 70, 22);
-        frmCrossconnect3.getContentPane().add(button);
-
-        Button button_2 = new Button("FORWARD");
-        button_2.setForeground(Color.BLACK);
-        button_2.setBackground(new Color(30, 144, 255));
-        button_2.setBounds(551, 232, 70, 22);
-        frmCrossconnect3.getContentPane().add(button_2);
-*/
         JButton btnExit = new JButton("EXIT");
         btnExit.setForeground(new Color(0, 0, 0));
         btnExit.setBackground(new Color(30, 144, 255));
@@ -335,15 +326,6 @@ public class MemberContribution implements ActionListener, Printable{
                 }
             }
         }
-       /* if("FORWARD".equals(e.getActionCommand()))
-        {
-
-        }
-        if("BACK".equals(e.getActionCommand()))
-        {
-
-        }
-        */
     }
 
     private void GenerateRoport(int month, int year)
@@ -363,64 +345,71 @@ public class MemberContribution implements ActionListener, Printable{
             Connection con= DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
             Statement s=con.createStatement();
             //use s.executeQuery("SQL statement"); to execute statements on the database
-            String query = "SELECT * FROM Contribution WHERE User_ID=" + 1;//userid;
-            ResultSet rs = s.executeQuery(query);
-
-            ArrayList<String> dates = new ArrayList<String>();
-            ArrayList<String> don_id = new ArrayList<String>();
-            ArrayList<String> description = new ArrayList<String>();
-            ArrayList<String> type = new ArrayList<String>();
-            System.out.println(month);
-            while(rs.next())
+            if(userid == "")
             {
-                dates.add(rs.getString("Date"));
-                don_id.add(rs.getString("Donation_ID"));
+                JOptionPane.showMessageDialog(frmCrossconnect3, "No one logged in");
             }
-            for(int i = 0; i <dates.size(); i++)
+            else
             {
-                //Date shown as 2016-03-27
-                String check = dates.get(i);
-                int checkYear = Integer.parseInt(check.substring(0, 4));
-                int checkMonth = Integer.parseInt(check.substring(5,7));
-                if(month!= checkMonth || year!= checkYear)
+                String query = "SELECT * FROM Contribution WHERE User_ID=" + userid;
+                ResultSet rs = s.executeQuery(query);
+
+                ArrayList<String> dates = new ArrayList<String>();
+                ArrayList<String> don_id = new ArrayList<String>();
+                ArrayList<String> description = new ArrayList<String>();
+                ArrayList<String> type = new ArrayList<String>();
+                while(rs.next())
                 {
-                    dates.remove(i);
-                    i--;
+                    dates.add(rs.getString("Date"));
+                    don_id.add(rs.getString("Donation_ID"));
                 }
-
-            }
-            for(int i = 0; i < don_id.size(); i++)
-            {
-                ResultSet rsd = s.executeQuery("SELECT * FROM Donation WHERE Donation_ID=" + don_id.get(i));
-                while(rsd.next())
+                for(int i = 0; i <dates.size(); i++)
                 {
-                    description.add(rsd.getString("Description"));
-                    type.add(rsd.getString("Donation_Type"));
+                    //Date shown as 2016-03-27
+                    String check = dates.get(i);
+                    int checkYear = Integer.parseInt(check.substring(0, 4));
+                    int checkMonth = Integer.parseInt(check.substring(5,7));
+                    if(month!= checkMonth || year!= checkYear)
+                    {
+                        dates.remove(i);
+                        i--;
+                    }
+
                 }
-            }
-            String data[][] = new String[dates.size()][3];
-            for(int i = 0; i < dates.size(); i++)
-            {
-                data[i][0] = dates.get(i);
-                data[i][1] = type.get(i);
-                data[i][2] = description.get(i);
-            }
-            String[] columnNames = {"Date", "Donation Type", "Description"};
-            JTable table = new JTable(data,columnNames);
-            JScrollPane scrollPane = new JScrollPane(table);
-            scrollPane.setBounds(10, 30, 470, 380);
-            scrollPane.setWheelScrollingEnabled(true);
-            frmReport.add(scrollPane);
+                for(int i = 0; i < don_id.size(); i++)
+                {
+                    ResultSet rsd = s.executeQuery("SELECT * FROM Donation WHERE Donation_ID=" + don_id.get(i));
+                    while(rsd.next())
+                    {
+                        description.add(rsd.getString("Description"));
+                        type.add(rsd.getString("Donation_Type"));
+                    }
+                }
+                String data[][] = new String[dates.size()][3];
+                for(int i = 0; i < dates.size(); i++)
+                {
+                    data[i][0] = dates.get(i);
+                    data[i][1] = type.get(i);
+                    data[i][2] = description.get(i);
+                }
+                String[] columnNames = {"Date", "Donation Type", "Description"};
+                JTable table = new JTable(data,columnNames);
+                JScrollPane scrollPane = new JScrollPane(table);
+                scrollPane.setBounds(10, 30, 470, 380);
+                scrollPane.setWheelScrollingEnabled(true);
+                frmReport.add(scrollPane);
 
-            JButton btnPrint = new JButton("PRINT");
-            btnPrint.setForeground(new Color(0, 0, 0));
-            btnPrint.setBackground(new Color(30, 144, 255));
-            btnPrint.setBounds(230, 420, 70, 22);
-            btnPrint.setActionCommand("PRINT");
-            frmReport.getContentPane().add(btnPrint);
-            btnPrint.addActionListener(this);
+                JButton btnPrint = new JButton("PRINT");
+                btnPrint.setForeground(new Color(0, 0, 0));
+                btnPrint.setBackground(new Color(30, 144, 255));
+                btnPrint.setBounds(230, 420, 70, 22);
+                btnPrint.setActionCommand("PRINT");
+                frmReport.getContentPane().add(btnPrint);
+                btnPrint.addActionListener(this);
 
-            frmReport.setVisible(true);
+                frmReport.setVisible(true);
+
+            }
 
         } catch (Exception e) {
             // TODO Auto-generated catch block
