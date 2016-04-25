@@ -102,7 +102,7 @@ public class ChurchDirectory implements ActionListener{
         lblNewLabel.setBounds(370, 52, 100, 14);
         frmCrossconnect5.getContentPane().add(lblNewLabel);
 
-        JLabel lblNewLabel_1 = new JLabel("Name: " + userid);
+        JLabel lblNewLabel_1 = new JLabel("Name: " + username);
         lblNewLabel_1.setFont(new Font("Tahoma", Font.BOLD, 11));
         lblNewLabel_1.setForeground(new Color(0, 0, 205));
         lblNewLabel_1.setBackground(Color.LIGHT_GRAY);
