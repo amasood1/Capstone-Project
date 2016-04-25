@@ -23,6 +23,7 @@ import java.awt.ScrollPane;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
@@ -53,7 +54,7 @@ import javax.swing.border.LineBorder;
 import com.toedter.calendar.JDateChooser;
 import javax.swing.JMenuBar;
 
-public class EventSchedule {
+public class EventSchedule implements ActionListener {
 
 	JFrame frmCrossconnect9;
 	private JTextField tfMemberName;
@@ -73,6 +74,7 @@ public class EventSchedule {
 	private Button buttonUpdate;
 	private Button buttonExit;
 	private Button buttonSend;
+	private JTextField eventID;
 	/**
 	 * Launch the application.
 	 */
@@ -284,36 +286,42 @@ public class EventSchedule {
 		buttonAdd.setBackground(new Color(30, 144, 255));
 		buttonAdd.setBounds(639, 146, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonAdd);
-
+		buttonAdd.addActionListener(this);
+		
 		buttonUpdate = new Button("UPDATE");
 		buttonUpdate.setForeground(Color.BLACK);
 		buttonUpdate.setBackground(new Color(30, 144, 255));
 		buttonUpdate.setBounds(639, 181, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonUpdate);
+		buttonUpdate.addActionListener(this);
 
 		buttonDelete = new Button("DELETE");
 		buttonDelete.setForeground(Color.BLACK);
 		buttonDelete.setBackground(new Color(30, 144, 255));
 		buttonDelete.setBounds(639, 226, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonDelete);
+		buttonDelete.addActionListener(this);
 
 		buttonExit = new Button("EXIT");
 		buttonExit.setForeground(Color.BLACK);
 		buttonExit.setBackground(new Color(30, 144, 255));
 		buttonExit.setBounds(639, 310, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonExit);
+		buttonExit.addActionListener(this);
 
 		buttonSend = new Button("SEND REQUEST ");
 		buttonSend.setForeground(new Color(0, 0, 0));
 		buttonSend.setBackground(new Color(30, 144, 255));
 		buttonSend.setBounds(626, 266, 91, 22);
 		frmCrossconnect9.getContentPane().add(buttonSend);
-
+		buttonSend.addActionListener(this);
+		
 		buttonView = new Button("VIEW");
 		buttonView.setForeground(new Color(0, 0, 0));
 		buttonView.setBackground(new Color(30, 144, 255));
 		buttonView.setBounds(639, 111, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonView);
+		buttonView.addActionListener(this);
 
 		//1. Member Name
 		JLabel lblNewLabel_1 = new JLabel("Name:");
@@ -427,6 +435,12 @@ public class EventSchedule {
 		tfEventTime.setBounds(391, 183, 86, 20);
 		frmCrossconnect9.getContentPane().add(tfEventTime);
 		tfEventTime.setColumns(10);
+		
+		eventID=new JTextField("1");
+		eventID.setBounds(391,350,86,20);
+		frmCrossconnect9.getContentPane().add(eventID);
+		eventID.setColumns(10);
+		
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -456,7 +470,7 @@ public void actionPerformed(ActionEvent e) {
 			System.out.println("Member Name:" + tfMemberName.getText());
 			System.out.println("Member ID:" + tfMemberID.getText());
 			System.out.println("Date:" + dateChooser.getDateFormatString());
-			System.out.println("Month:" + monthChooser.getDateFormatString());
+			System.out.println("Month:" + monthChooser.getMonth());
 			System.out.println("Event Type:" + choiceEventType.getSelectedItem());
 			System.out.println("Guest Num:" + tfGuestNum.getText());
 			System.out.println("Room Num:" + choiceRoomNum.getSelectedItem());
@@ -470,14 +484,14 @@ public void actionPerformed(ActionEvent e) {
 				Statement s=con.createStatement();
 
 				String queryString="'"+tfMemberName.getText()+"','"+tfMemberID.getText()+"','"+
-				dateChooser.getDateFormatString()+"','"+monthChooser.getDateFormatString()+"','"+
+				dateChooser.getDateFormatString()+"','"+monthChooser.getMonth()+"','"+
 				choiceEventType.getSelectedItem()+"','"+tfGuestNum.getText()+"','"+
 				choiceRoomNum.getSelectedItem()+"','"+tfEventManagerName.getText()+"','"+
 				tfEventManagerContact.getText()+"','"+tfEventTime.getText()+"'";
 
 				System.out.println(queryString);
 				s.execute("INSERT INTO [Events](Event_ID,Member_Name,Member_ID,Day,Month,Event_Type,Guest_Num,Room_Num,Contact_Name,Contact_Contact,Event_Time)"
-					+ "VALUES("+queryString+",'"+d+"','NC')");
+					+ "VALUES("+queryString+",'NC')");
 
 
 			} catch (Exception x) {
@@ -510,7 +524,7 @@ public void actionPerformed(ActionEvent e) {
 				String queryString="Member_Name=" + tfMemberName.getText()+","+
 								   "Member_ID=" + tfMemberID.getText()+","+
 								   "Day=" + dateChooser.getDateFormatString()+","+
-								   "Month=" + monthChooser.getDateFormatString()+","+
+								   "Month=" + monthChooser.getMonth()+","+
 								   "Event_Type=" + choiceEventType.getSelectedItem()+","+
 								   "Guest_Num=" + tfGuestNum.getText()+","+
 						           "Room_Num=" + choiceRoomNum.getSelectedItem()+","+
@@ -534,12 +548,12 @@ public void actionPerformed(ActionEvent e) {
 				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 				Statement s=con.createStatement();
 
-				ResultSet rs = s.execute("SELECT FROM [Events] WHERE Event_ID='"+eventID.getText()+"'");
-
+				ResultSet rs = s.executeQuery("SELECT * FROM [Event] WHERE Event_ID='"+eventID.getText()+"'");
+				
 				tfMemberName.setText((String) rs.getObject("Member_Name"));
 				tfMemberID.setText((String)rs.getObject("Member_ID"));
 				dateChooser.setDateFormatString((String)rs.getObject("Date"));
-				monthChooser.setDateFormatString((String)rs.getObject("Month"));
+				//monthChooser.setDateFormatString((String)rs.getObject("Month"));
 				choiceEventType.select((String)rs.getObject("Event_Type"));
 				tfGuestNum.setText((String)rs.getObject("Guest_Num"));
 				choiceRoomNum.select((String)rs.getObject("Room_Num"));
