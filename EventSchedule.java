@@ -19,6 +19,8 @@ import javax.swing.Box;
 import javax.swing.JButton;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+
 import java.awt.ScrollPane;
 import javax.swing.JPopupMenu;
 import java.awt.Component;
@@ -287,7 +289,7 @@ public class EventSchedule implements ActionListener {
 		buttonAdd.setBounds(639, 146, 70, 22);
 		frmCrossconnect9.getContentPane().add(buttonAdd);
 		buttonAdd.addActionListener(this);
-		
+
 		buttonUpdate = new Button("UPDATE");
 		buttonUpdate.setForeground(Color.BLACK);
 		buttonUpdate.setBackground(new Color(30, 144, 255));
@@ -315,7 +317,7 @@ public class EventSchedule implements ActionListener {
 		buttonSend.setBounds(626, 266, 91, 22);
 		frmCrossconnect9.getContentPane().add(buttonSend);
 		buttonSend.addActionListener(this);
-		
+
 		buttonView = new Button("VIEW");
 		buttonView.setForeground(new Color(0, 0, 0));
 		buttonView.setBackground(new Color(30, 144, 255));
@@ -435,12 +437,12 @@ public class EventSchedule implements ActionListener {
 		tfEventTime.setBounds(391, 183, 86, 20);
 		frmCrossconnect9.getContentPane().add(tfEventTime);
 		tfEventTime.setColumns(10);
-		
+
 		eventID=new JTextField("1");
 		eventID.setBounds(391,350,86,20);
 		frmCrossconnect9.getContentPane().add(eventID);
 		eventID.setColumns(10);
-		
+
 	}
 
 	private static void addPopup(Component component, final JPopupMenu popup) {
@@ -467,33 +469,9 @@ public void actionPerformed(ActionEvent e) {
 
 		if(e.getSource()==buttonAdd) // SQL ADD
 		{
-			System.out.println("Member Name:" + tfMemberName.getText());
-			System.out.println("Member ID:" + tfMemberID.getText());
-			System.out.println("Date:" + dateChooser.getDateFormatString());
-			System.out.println("Month:" + monthChooser.getMonth());
-			System.out.println("Event Type:" + choiceEventType.getSelectedItem());
-			System.out.println("Guest Num:" + tfGuestNum.getText());
-			System.out.println("Room Num:" + choiceRoomNum.getSelectedItem());
-			System.out.println("Event Manager Name:" + tfEventManagerName.getText());
-			System.out.println("Event Manager Contact:" + tfEventManagerContact.getText());
-			System.out.println("Event Time:" + tfEventTime.getText());
 
 			try {
-				Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
-				Statement s=con.createStatement();
-
-				String queryString="'"+tfMemberName.getText()+"','"+tfMemberID.getText()+"','"+
-				dateChooser.getDateFormatString()+"','"+monthChooser.getMonth()+"','"+
-				choiceEventType.getSelectedItem()+"','"+tfGuestNum.getText()+"','"+
-				choiceRoomNum.getSelectedItem()+"','"+tfEventManagerName.getText()+"','"+
-				tfEventManagerContact.getText()+"','"+tfEventTime.getText()+"'";
-
-				System.out.println(queryString);
-				s.execute("INSERT INTO [Events](Event_ID,Member_Name,Member_ID,Day,Month,Event_Type,Guest_Num,Room_Num,Contact_Name,Contact_Contact,Event_Time)"
-					+ "VALUES("+queryString+",'NC')");
-
-
+				JOptionPane.showMessageDialog(null, "Information could not be added.");
 			} catch (Exception x) {
 				// TODO Auto-generated catch block
 				x.printStackTrace();
@@ -506,7 +484,8 @@ public void actionPerformed(ActionEvent e) {
 				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 				Statement s=con.createStatement();
 
-				s.execute("DELETE FROM [Events] WHERE Event_ID='"+eventID.getText()+"'");
+				s.execute("DELETE FROM [Event] WHERE Event_ID='"+eventID.getText()+"'");
+				JOptionPane.showMessageDialog(null, "Event has been removed.");
 
 
 			} catch (Exception x) {
@@ -521,19 +500,7 @@ public void actionPerformed(ActionEvent e) {
 				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 				Statement s=con.createStatement();
 
-				String queryString="Member_Name=" + tfMemberName.getText()+","+
-								   "Member_ID=" + tfMemberID.getText()+","+
-								   "Day=" + dateChooser.getDateFormatString()+","+
-								   "Month=" + monthChooser.getMonth()+","+
-								   "Event_Type=" + choiceEventType.getSelectedItem()+","+
-								   "Guest_Num=" + tfGuestNum.getText()+","+
-						           "Room_Num=" + choiceRoomNum.getSelectedItem()+","+
-								   "Manager_Name=" + tfEventManagerName.getText()+","+
-						           "Manager_Contact=" + tfEventManagerContact.getText()+","+
-								   "Event_Time=" + tfEventTime.getText();
-
-				//
-				s.execute("UPDATE [Events]" + queryString + "WHERE Event_ID='"+eventID.getText()+"'");
+				JOptionPane.showMessageDialog(null, "Information could not be updated.");
 
 
 			} catch (Exception x) {
@@ -548,18 +515,7 @@ public void actionPerformed(ActionEvent e) {
 				Connection con=DriverManager.getConnection("jdbc:sqlserver://zfa6f4giy6.database.windows.net:1433;database=TOP_CC;user=CC_Admin@zfa6f4giy6;password={Cross_Connect};encrypt=true;trustServerCertificate=false;hostNameInCertificate=*.database.windows.net;loginTimeout=30");
 				Statement s=con.createStatement();
 
-				ResultSet rs = s.executeQuery("SELECT * FROM [Event] WHERE Event_ID='"+eventID.getText()+"'");
-				
-				tfMemberName.setText((String) rs.getObject("Member_Name"));
-				tfMemberID.setText((String)rs.getObject("Member_ID"));
-				dateChooser.setDateFormatString((String)rs.getObject("Date"));
-				//monthChooser.setDateFormatString((String)rs.getObject("Month"));
-				choiceEventType.select((String)rs.getObject("Event_Type"));
-				tfGuestNum.setText((String)rs.getObject("Guest_Num"));
-				choiceRoomNum.select((String)rs.getObject("Room_Num"));
-				tfEventManagerName.setText((String)rs.getObject("Manager_Name"));
-				tfEventManagerContact.setText((String)rs.getObject("Manager_Contact"));
-				tfEventTime.setText((String)rs.getObject("Event_Time"));
+				JOptionPane.showMessageDialog(null, "Unable to view information currently.");
 
 
 			} catch (Exception x) {
@@ -572,6 +528,14 @@ public void actionPerformed(ActionEvent e) {
 			String[] args = null;
 			AdministratorMain.main(args);
 			frmCrossconnect9.dispose();
+		}
+		else if(e.getSource()==buttonSend)
+		{
+			String emailString="Member_Name:\nMemberID:\nDay:\nMonth:\nEvent Type:\nGuest Number:\nRoom Number:";
+
+				Member.sendEmail(emailString, "Event", "jrdaughtridge@gmail.com");
+				JOptionPane.showMessageDialog(null, "Request sent to Admin");
+
 		}
 	}
 }

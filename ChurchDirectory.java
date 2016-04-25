@@ -1,5 +1,12 @@
 import java.awt.EventQueue;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 import javax.swing.*;
 import java.awt.Color;
 import java.awt.Font;
@@ -17,10 +24,12 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.Map;
+import java.util.Properties;
 
 public class ChurchDirectory implements ActionListener{
 
     JFrame frmCrossconnect5;
+    String email;
    /* private JTextField textField;
     private JTextField textField_2;*/
 
@@ -299,7 +308,7 @@ public class ChurchDirectory implements ActionListener{
             //use s.executeQuery("SQL statement"); to execute statements on the database
             String query = "SELECT * FROM [Users]";
             ResultSet rs = s.executeQuery(query);
-            String first, last, email;
+            String first, last;
             while(rs.next())
             {
                 first = rs.getString("first_Name");
@@ -328,7 +337,12 @@ public class ChurchDirectory implements ActionListener{
         }
         if("EMAIL".equals(e.getActionCommand()))
         {
-
+        	
+        	JFrame frame = new JFrame();
+        	String s = JOptionPane.showInputDialog(frame, "Enter email body:");
+        	sendEmail(s, "Directory", email);
+        	
+        	 
         }
     }
 
@@ -349,4 +363,38 @@ public class ChurchDirectory implements ActionListener{
             }
         });
     }
+    public static void sendEmail(String body,String requestType,String email){
+		Properties props = new Properties();
+		props.put("mail.smtp.host", "smtp.gmail.com");
+		props.put("mail.smtp.socketFactory.port", "465");
+		props.put("mail.smtp.socketFactory.class",
+				"javax.net.ssl.SSLSocketFactory");
+		props.put("mail.smtp.auth", "true");
+		props.put("mail.smtp.port", "465");
+
+		Session session = Session.getDefaultInstance(props,
+			new javax.mail.Authenticator() {
+				protected PasswordAuthentication getPasswordAuthentication() {
+					return new PasswordAuthentication("jrdaughtridge@gmail.com","jr5d13nc");
+				}
+			});
+
+		try {
+
+			Message message = new MimeMessage(session);
+			message.setFrom(new InternetAddress("jrdaughtridge@gmail.com"));
+			message.setRecipients(Message.RecipientType.TO,
+					InternetAddress.parse(email));
+			message.setSubject(requestType+" request");
+			message.setText(body);
+
+			Transport.send(message);
+			System.out.println(requestType+" request sent to Admin");
+			JOptionPane.showMessageDialog(null, requestType+" request sent to Admin");
+
+
+		} catch (MessagingException e) {
+			throw new RuntimeException(e);
+		}
+	    }
 }
